@@ -1,0 +1,2025 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cây Ngữ Pháp Tiếng Anh</title>
+
+    <style>
+      :root {
+        --primary-color: #2c3e50;
+        --accent-color: #3498db;
+        --accent-light: #eaf4fd;
+        --bg-color: #f8f9fa;
+        --card-bg: #ffffff;
+        --text-color: #333;
+        --muted-color: #64748b;
+        --border-color: #e2e8f0;
+        --success-color: #27ae60;
+        --danger-color: #c0392b;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background: var(--bg-color);
+        color: var(--text-color);
+        display: flex;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      /* =========================================================
+           SIDEBAR
+        ========================================================= */
+
+      .sidebar {
+        width: 390px;
+        min-width: 390px;
+        background: var(--card-bg);
+        border-right: 1px solid var(--border-color);
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+
+      .sidebar-header {
+        padding: 20px;
+        background: var(--primary-color);
+        color: white;
+        font-size: 1.1rem;
+        font-weight: bold;
+        text-align: center;
+      }
+
+      .tree-container {
+        flex: 1;
+        overflow-y: auto;
+        padding: 15px;
+      }
+
+      .tree-container ul {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      .tree-container .children-list {
+        display: none;
+        margin-top: 5px;
+        margin-left: 15px;
+        padding-left: 14px;
+        border-left: 1px dashed #cbd5e1;
+      }
+
+      .tree-container .tree-node.open > .children-list {
+        display: block;
+      }
+
+      .tree-node {
+        margin: 5px 0;
+      }
+
+      /* =========================================================
+           CATEGORY
+        ========================================================= */
+
+      .node-content {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .expand-btn {
+        width: 28px;
+        height: 32px;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        color: #64748b;
+        font-size: 12px;
+        flex-shrink: 0;
+        border-radius: 5px;
+      }
+
+      .expand-btn:hover {
+        background: #f1f5f9;
+      }
+
+      .expand-btn.no-children {
+        cursor: default;
+      }
+
+      .expand-icon {
+        display: inline-block;
+        transition: transform 0.2s ease;
+      }
+
+      .tree-node.open > .node-content .expand-icon {
+        transform: rotate(90deg);
+      }
+
+      .category-title {
+        flex: 1;
+        font-weight: 600;
+        color: var(--primary-color);
+        cursor: pointer;
+        padding: 8px 10px;
+        border-radius: 7px;
+        transition: all 0.2s;
+        user-select: none;
+        line-height: 1.4;
+      }
+
+      .category-title:hover {
+        background: #f1f5f9;
+      }
+
+      .category-title.active {
+        background: var(--accent-color);
+        color: white;
+      }
+
+      .category-title.active:hover {
+        background: var(--accent-color);
+      }
+
+      /* =========================================================
+           MAIN CONTENT
+        ========================================================= */
+
+      .main-content {
+        flex: 1;
+        padding: 40px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .card {
+        background: var(--card-bg);
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+      }
+
+      h1 {
+        color: var(--primary-color);
+        margin-bottom: 10px;
+        font-size: 1.8rem;
+      }
+
+      h2 {
+        color: var(--primary-color);
+        margin-bottom: 12px;
+      }
+
+      .description {
+        color: var(--muted-color);
+        line-height: 1.7;
+      }
+
+      .breadcrumb {
+        color: var(--muted-color);
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+      }
+
+      .breadcrumb span {
+        color: var(--accent-color);
+        font-weight: 600;
+      }
+
+      /* =========================================================
+           THEORY
+        ========================================================= */
+
+      .theory-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 15px;
+      }
+
+      .theory-badge {
+        background: var(--accent-light);
+        color: var(--accent-color);
+        padding: 5px 10px;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        font-weight: bold;
+      }
+
+      .theory-content {
+        line-height: 1.8;
+        color: #475569;
+        white-space: pre-line;
+      }
+
+      /* =========================================================
+           QUIZ
+        ========================================================= */
+
+      .quiz-section {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .quiz-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        border-bottom: 2px solid var(--border-color);
+        padding-bottom: 12px;
+      }
+
+      .quiz-title {
+        color: var(--primary-color);
+        font-size: 1.15rem;
+        font-weight: 700;
+      }
+
+      .quiz-count {
+        background: #f1f5f9;
+        color: #475569;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        white-space: nowrap;
+      }
+
+      /* =========================================================
+           EXAM SELECTOR
+        ========================================================= */
+
+      /* =========================================================
+   EXAM SELECTOR
+========================================================= */
+
+      .exam-selector {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px;
+        background: #f8fafc;
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+
+        /*
+        Quan trọng:
+        Không cho selector tự xuống dòng.
+    */
+        flex-wrap: nowrap;
+
+        /*
+        Cho phép phần tử con co đúng cách
+    */
+        min-width: 0;
+      }
+
+      .exam-nav-btn {
+        flex: 0 0 auto;
+
+        border: 1px solid var(--border-color);
+        background: white;
+        color: var(--primary-color);
+
+        padding: 9px 14px;
+        border-radius: 8px;
+
+        cursor: pointer;
+        font-weight: 600;
+
+        white-space: nowrap;
+      }
+
+      .exam-tab {
+        flex: 0 0 auto;
+
+        border: 1px solid var(--border-color);
+        background: white;
+        color: var(--primary-color);
+
+        padding: 9px 14px;
+        border-radius: 8px;
+
+        cursor: pointer;
+        font-weight: 600;
+
+        white-space: nowrap;
+      }
+
+      .exam-nav-btn:hover:not(:disabled),
+      .exam-tab:hover {
+        border-color: var(--accent-color);
+        color: var(--accent-color);
+        background: var(--accent-light);
+      }
+
+      .exam-nav-btn:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+
+      .exam-tab.active {
+        background: var(--accent-color);
+        color: white;
+        border-color: var(--accent-color);
+      }
+
+      /*
+    QUAN TRỌNG NHẤT
+
+    Chỉ phần danh sách đề được scroll.
+*/
+      .exam-list {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        flex: 1;
+        min-width: 0;
+
+        /*
+        Không wrap nữa
+    */
+        flex-wrap: nowrap;
+
+        /*
+        Scroll ngang
+    */
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        /*
+        Không cho scrollbar chiếm quá nhiều không gian
+    */
+        scrollbar-width: thin;
+
+        /*
+        Khoảng trống để active tab không sát mép
+    */
+        padding: 2px 4px 8px;
+      }
+
+      /*
+    Chrome / Safari scrollbar
+*/
+      .exam-list::-webkit-scrollbar {
+        height: 7px;
+      }
+
+      .exam-list::-webkit-scrollbar-track {
+        background: #e2e8f0;
+        border-radius: 10px;
+      }
+
+      .exam-list::-webkit-scrollbar-thumb {
+        background: #94a3b8;
+        border-radius: 10px;
+      }
+
+      .exam-list::-webkit-scrollbar-thumb:hover {
+        background: #64748b;
+      }
+
+      .exam-title {
+        color: var(--primary-color);
+        font-size: 1.15rem;
+        font-weight: 700;
+      }
+
+      /* =========================================================
+           QUESTIONS
+        ========================================================= */
+
+      .question-box {
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        padding: 20px;
+      }
+
+      .question-number {
+        color: var(--accent-color);
+        font-size: 0.85rem;
+        font-weight: bold;
+        margin-bottom: 8px;
+      }
+
+      .question-title {
+        font-weight: 600;
+        margin-bottom: 15px;
+        line-height: 1.6;
+      }
+
+      .options-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .option-label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 11px 14px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .option-label:hover {
+        background: #f8fafc;
+        border-color: var(--accent-color);
+      }
+
+      .option-label input {
+        cursor: pointer;
+      }
+
+      .submit-btn {
+        margin-top: 15px;
+        background: var(--accent-color);
+        color: white;
+        border: none;
+        padding: 11px 22px;
+        font-size: 0.95rem;
+        font-weight: bold;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      .submit-btn:hover {
+        background: #2980b9;
+      }
+
+      .result-msg {
+        margin-top: 12px;
+        line-height: 1.6;
+      }
+
+      .correct {
+        color: var(--success-color);
+      }
+
+      .incorrect {
+        color: var(--danger-color);
+      }
+
+      /* =========================================================
+           EMPTY STATE
+        ========================================================= */
+
+      .empty-state {
+        text-align: center;
+        padding: 30px;
+        color: var(--muted-color);
+        background: #f8fafc;
+        border-radius: 10px;
+      }
+
+      /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+      @media (max-width: 800px) {
+        body {
+          flex-direction: column;
+          height: auto;
+          min-height: 100vh;
+          overflow: auto;
+        }
+
+        .sidebar {
+          width: 100%;
+          min-width: 0;
+          height: 400px;
+        }
+
+        .main-content {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+      <div class="sidebar-header">NGỮ PHÁP NGÔN NGỮ</div>
+
+      <div class="tree-container" id="treeRoot"></div>
+    </aside>
+
+    <!-- MAIN -->
+
+    <main class="main-content" id="mainContent">
+      <div class="card">
+        <h1>Chào mừng bạn đến với hệ thống học Ngữ pháp!</h1>
+
+        <p class="description">
+          Chọn một category ở bên trái để xem lý thuyết và các đề luyện tập.
+        </p>
+      </div>
+    </main>
+
+    <script>
+      /* =============================================================
+   GRAMMAR DATA
+=============================================================
+
+   CẤU TRÚC:
+
+   category
+   ├── id
+   ├── name
+   ├── theory
+   ├── exams: []
+   │    ├── exam 1
+   │    │    └── quizzes: []
+   │    ├── exam 2
+   │    │    └── quizzes: []
+   │    └── exam 3
+   │         └── quizzes: []
+   │
+   └── children: []
+
+============================================================= */
+
+      const grammarData = [
+        {
+          id: "english",
+          name: "Ngữ pháp Tiếng Anh",
+          theory: "",
+          exams: [],
+
+          children: [
+            /* =================================================
+               CATEGORY 1
+            ================================================= */
+
+            {
+              id: "parts-of-speech",
+              name: "1. LOẠI TỪ (PARTS OF SPEECH)",
+
+              theory: `
+Các loại từ là nền tảng của ngữ pháp tiếng Anh.
+
+Mỗi loại từ có chức năng khác nhau:
+Danh từ, động từ, tính từ, trạng từ, đại từ...
+                `,
+
+              exams: [
+                {
+                  id: "pos-exam-4",
+                  name: "Đề 4 - Cơ bản",
+                },
+                {
+                  id: "pos-exam-1",
+                  name: "Đề 1 - Cơ bản",
+
+                  quizzes: [
+                    {
+                      id: "pos-exam1-q1",
+
+                      question: "Từ nào sau đây là danh từ?",
+
+                      options: ["Run", "Cat", "Beautiful", "Quickly"],
+
+                      answer: 1,
+
+                      explanation: "'Cat' là danh từ.",
+                    },
+
+                    {
+                      id: "pos-exam1-q2",
+
+                      question: "Từ nào sau đây là động từ?",
+
+                      options: ["Beautiful", "Happiness", "Run", "Slowly"],
+
+                      answer: 2,
+
+                      explanation: "'Run' là động từ.",
+                    },
+
+                    {
+                      id: "pos-exam1-q3",
+
+                      question: "Từ nào sau đây là tính từ?",
+
+                      options: ["Beautiful", "Run", "Dog", "Quickly"],
+
+                      answer: 0,
+
+                      explanation: "'Beautiful' là tính từ.",
+                    },
+                  ],
+                },
+
+                {
+                  id: "pos-exam-2",
+                  name: "Đề 2 - Nâng cao",
+
+                  quizzes: [
+                    {
+                      id: "pos-exam2-q1",
+
+                      question:
+                        "Trong câu 'She sings beautifully', từ 'beautifully' là gì?",
+
+                      options: ["Danh từ", "Động từ", "Tính từ", "Trạng từ"],
+
+                      answer: 3,
+
+                      explanation: "'Beautifully' là trạng từ.",
+                    },
+
+                    {
+                      id: "pos-exam2-q2",
+
+                      question: "Từ nào là đại từ?",
+
+                      options: ["They", "Beautiful", "House", "Quickly"],
+
+                      answer: 0,
+
+                      explanation: "'They' là đại từ.",
+                    },
+
+                    {
+                      id: "pos-exam2-q3",
+
+                      question: "Từ nào là giới từ?",
+
+                      options: ["Under", "Run", "Happy", "Dog"],
+
+                      answer: 0,
+
+                      explanation: "'Under' là giới từ.",
+                    },
+                  ],
+                },
+
+                {
+                  id: "pos-exam-3",
+                  name: "Đề 3 - Tổng hợp",
+
+                  quizzes: [
+                    {
+                      id: "pos-exam3-q1",
+
+                      question: "Which word is a noun?",
+
+                      options: ["Teacher", "Quickly", "Beautiful", "Run"],
+
+                      answer: 0,
+
+                      explanation: "'Teacher' là danh từ.",
+                    },
+
+                    {
+                      id: "pos-exam3-q2",
+
+                      question: "Which word is an adjective?",
+
+                      options: ["Slowly", "Beautiful", "Run", "School"],
+
+                      answer: 1,
+
+                      explanation: "'Beautiful' là tính từ.",
+                    },
+
+                    {
+                      id: "pos-exam3-q3",
+
+                      question: "Which word is an adverb?",
+
+                      options: ["Quickly", "Quick", "Car", "Drive"],
+
+                      answer: 0,
+
+                      explanation: "'Quickly' là trạng từ.",
+                    },
+                  ],
+                },
+              ],
+
+              children: [
+                /* =========================================
+                       CHILD CATEGORY
+                    ========================================= */
+
+                {
+                  id: "common-noun",
+                  name: "Danh từ chung (Common Noun)",
+
+                  theory: `
+Danh từ chung dùng để chỉ những sự vật,
+hiện tượng chung trong cùng một loại.
+
+Ví dụ:
+dog, city, car, table.
+                        `,
+
+                  exams: [
+                    {
+                      id: "common-exam-1",
+                      name: "Đề 1",
+
+                      quizzes: [
+                        {
+                          id: "common-exam1-q1",
+
+                          question: "Từ nào sau đây là danh từ chung?",
+
+                          options: ["London", "Cat", "Viet Nam", "Microsoft"],
+
+                          answer: 1,
+
+                          explanation: "'Cat' là danh từ chung.",
+                        },
+
+                        {
+                          id: "common-exam1-q2",
+
+                          question: "Từ nào sau đây là danh từ chung?",
+
+                          options: ["John", "Paris", "Dog", "Google"],
+
+                          answer: 2,
+
+                          explanation: "'Dog' là danh từ chung.",
+                        },
+                      ],
+                    },
+
+                    {
+                      id: "common-exam-2",
+                      name: "Đề 2",
+
+                      quizzes: [
+                        {
+                          id: "common-exam2-q1",
+
+                          question: "Which is a common noun?",
+
+                          options: ["London", "Teacher", "John", "Google"],
+
+                          answer: 1,
+
+                          explanation: "'Teacher' là danh từ chung.",
+                        },
+
+                        {
+                          id: "common-exam2-q2",
+
+                          question: "Which word is NOT a proper noun?",
+
+                          options: ["Paris", "John", "School", "London"],
+
+                          answer: 2,
+
+                          explanation: "'School' là danh từ chung.",
+                        },
+                      ],
+                    },
+                  ],
+
+                  children: [
+                    {
+                      id: "animal-noun",
+                      name: "Danh từ chỉ động vật",
+
+                      theory: `
+Danh từ chỉ động vật dùng để gọi tên
+các loài động vật.
+
+Ví dụ:
+dog, cat, bird, elephant.
+                                `,
+
+                      exams: [
+                        {
+                          id: "animal-exam-1",
+                          name: "Đề 1",
+
+                          quizzes: [
+                            {
+                              id: "animal-exam1-q1",
+
+                              question: "Từ nào là danh từ chỉ động vật?",
+
+                              options: ["Table", "Tiger", "Teacher", "School"],
+
+                              answer: 1,
+
+                              explanation: "'Tiger' là động vật.",
+                            },
+
+                            {
+                              id: "animal-exam1-q2",
+
+                              question: "Which word is an animal?",
+
+                              options: ["Chair", "Lion", "Book", "House"],
+
+                              answer: 1,
+
+                              explanation: "'Lion' là động vật.",
+                            },
+                          ],
+                        },
+
+                        {
+                          id: "animal-exam-2",
+                          name: "Đề 2",
+
+                          quizzes: [
+                            {
+                              id: "animal-exam2-q1",
+
+                              question: "Which word is an animal?",
+
+                              options: ["Dog", "Table", "Computer", "School"],
+
+                              answer: 0,
+
+                              explanation: "'Dog' là động vật.",
+                            },
+
+                            {
+                              id: "animal-exam2-q2",
+
+                              question: "Which word is NOT an animal?",
+
+                              options: ["Cat", "Tiger", "House", "Lion"],
+
+                              answer: 2,
+
+                              explanation: "'House' không phải động vật.",
+                            },
+                          ],
+                        },
+
+                        {
+                          id: "animal-exam-3",
+                          name: "Đề 3",
+
+                          quizzes: [
+                            {
+                              id: "animal-exam3-q1",
+
+                              question: "Which animal can fly?",
+
+                              options: ["Bird", "Dog", "Cat", "Horse"],
+
+                              answer: 0,
+
+                              explanation: "Bird là chim và có thể bay.",
+                            },
+
+                            {
+                              id: "animal-exam3-q2",
+
+                              question: "Which animal lives in water?",
+
+                              options: ["Fish", "Dog", "Cat", "Horse"],
+
+                              answer: 0,
+
+                              explanation: "Fish sống dưới nước.",
+                            },
+                          ],
+                        },
+                      ],
+
+                      children: [],
+                    },
+                  ],
+                },
+
+                /* =========================================
+                       PROPER NOUN
+                    ========================================= */
+
+                {
+                  id: "proper-noun",
+                  name: "Danh từ riêng (Proper Noun)",
+
+                  theory: `
+Danh từ riêng là tên riêng của người,
+địa điểm, tổ chức.
+
+Ví dụ:
+John, Hanoi, Google.
+                        `,
+
+                  exams: [
+                    {
+                      id: "proper-exam-1",
+                      name: "Đề 1",
+
+                      quizzes: [
+                        {
+                          id: "proper-exam1-q1",
+
+                          question: "Từ nào là danh từ riêng?",
+
+                          options: ["teacher", "Paris", "mountain", "river"],
+
+                          answer: 1,
+
+                          explanation: "'Paris' là tên riêng.",
+                        },
+
+                        {
+                          id: "proper-exam1-q2",
+
+                          question: "Từ nào cần viết hoa?",
+
+                          options: ["city", "school", "London", "country"],
+
+                          answer: 2,
+
+                          explanation: "'London' là tên riêng.",
+                        },
+                      ],
+                    },
+
+                    {
+                      id: "proper-exam-2",
+                      name: "Đề 2",
+
+                      quizzes: [
+                        {
+                          id: "proper-exam2-q1",
+
+                          question: "Which is a proper noun?",
+
+                          options: ["city", "teacher", "Hanoi", "school"],
+
+                          answer: 2,
+
+                          explanation: "'Hanoi' là tên riêng.",
+                        },
+
+                        {
+                          id: "proper-exam2-q2",
+
+                          question: "Which word should be capitalized?",
+
+                          options: ["country", "vietnam", "school", "teacher"],
+
+                          answer: 1,
+
+                          explanation: "Vietnam là tên riêng.",
+                        },
+                      ],
+                    },
+                  ],
+
+                  children: [],
+                },
+              ],
+            },
+
+            /* =================================================
+               CATEGORY 2
+            ================================================= */
+
+            {
+              id: "tenses",
+              name: "2. THÌ (TENSES)",
+
+              theory: `
+Thì trong tiếng Anh thể hiện thời điểm
+hoặc trạng thái của hành động.
+                `,
+
+              exams: [
+                {
+                  id: "tenses-exam-1",
+                  name: "Đề 1 - Hiện tại đơn",
+
+                  quizzes: [
+                    {
+                      id: "tenses-exam1-q1",
+
+                      question: "He usually ___ to school by bus.",
+
+                      options: ["go", "goes", "going", "gone"],
+
+                      answer: 1,
+
+                      explanation: "He là ngôi thứ ba số ít nên dùng goes.",
+                    },
+
+                    {
+                      id: "tenses-exam1-q2",
+
+                      question: "She ___ English every day.",
+
+                      options: ["study", "studies", "studying", "studied"],
+
+                      answer: 1,
+
+                      explanation: "She → studies.",
+                    },
+
+                    {
+                      id: "tenses-exam1-q3",
+
+                      question: "The sun ___ in the east.",
+
+                      options: ["rise", "rises", "rising", "rose"],
+
+                      answer: 1,
+
+                      explanation: "Đây là sự thật hiển nhiên.",
+                    },
+                  ],
+                },
+
+                {
+                  id: "tenses-exam-2",
+                  name: "Đề 2 - Quá khứ đơn",
+
+                  quizzes: [
+                    {
+                      id: "tenses-exam2-q1",
+
+                      question: "Yesterday, I ___ to school.",
+
+                      options: ["go", "goes", "went", "going"],
+
+                      answer: 2,
+
+                      explanation: "Yesterday → quá khứ đơn → went.",
+                    },
+
+                    {
+                      id: "tenses-exam2-q2",
+
+                      question: "She ___ a movie last night.",
+
+                      options: ["watch", "watched", "watches", "watching"],
+
+                      answer: 1,
+
+                      explanation: "Last night → quá khứ đơn.",
+                    },
+                  ],
+                },
+
+                {
+                  id: "tenses-exam-3",
+                  name: "Đề 3 - Tổng hợp",
+
+                  quizzes: [
+                    {
+                      id: "tenses-exam3-q1",
+
+                      question: "I ___ coffee every morning.",
+
+                      options: ["drink", "drank", "drinking", "drunk"],
+
+                      answer: 0,
+
+                      explanation: "Every morning → hiện tại đơn.",
+                    },
+
+                    {
+                      id: "tenses-exam3-q2",
+
+                      question: "I ___ him yesterday.",
+
+                      options: ["see", "sees", "saw", "seeing"],
+
+                      answer: 2,
+
+                      explanation: "Yesterday → quá khứ đơn → saw.",
+                    },
+
+                    {
+                      id: "tenses-exam3-q3",
+
+                      question: "She ___ here since 2020.",
+
+                      options: ["lives", "lived", "has lived", "living"],
+
+                      answer: 2,
+
+                      explanation: "Since 2020 → hiện tại hoàn thành.",
+                    },
+                  ],
+                },
+              ],
+
+              children: [
+                {
+                  id: "present-simple",
+                  name: "Hiện tại đơn (Present Simple)",
+
+                  theory: `
+Hiện tại đơn dùng để diễn tả:
+
+- Thói quen
+- Sự thật
+- Chân lý
+- Lịch trình cố định
+
+Cấu trúc:
+
+S + V(s/es)
+                        `,
+
+                  exams: [
+                    {
+                      id: "present-exam-1",
+                      name: "Đề 1",
+
+                      quizzes: [
+                        {
+                          id: "present-exam1-q1",
+
+                          question: "She ___ English every day.",
+
+                          options: ["study", "studies", "studying", "studied"],
+
+                          answer: 1,
+
+                          explanation: "She → studies.",
+                        },
+
+                        {
+                          id: "present-exam1-q2",
+
+                          question: "He ___ football every Sunday.",
+
+                          options: ["play", "plays", "playing", "played"],
+
+                          answer: 1,
+
+                          explanation: "He → plays.",
+                        },
+                      ],
+                    },
+
+                    {
+                      id: "present-exam-2",
+                      name: "Đề 2",
+
+                      quizzes: [
+                        {
+                          id: "present-exam2-q1",
+
+                          question: "My father ___ coffee every morning.",
+
+                          options: ["drink", "drinks", "drinking", "drank"],
+
+                          answer: 1,
+
+                          explanation: "My father là ngôi thứ ba số ít.",
+                        },
+
+                        {
+                          id: "present-exam2-q2",
+
+                          question: "They ___ English at school.",
+
+                          options: ["study", "studies", "studying", "studied"],
+
+                          answer: 0,
+
+                          explanation: "They → study.",
+                        },
+                      ],
+                    },
+                  ],
+
+                  children: [],
+                },
+              ],
+            },
+
+            /* =================================================
+               CATEGORY 3
+            ================================================= */
+
+            {
+              id: "word-order",
+              name: "3. THỨ TỰ TỪ (WORD ORDER)",
+
+              theory: `
+Trong tiếng Anh, vị trí của từ trong câu
+có vai trò rất quan trọng.
+
+Cấu trúc cơ bản:
+
+Subject + Verb + Object.
+                `,
+
+              exams: [
+                {
+                  id: "word-order-exam-1",
+                  name: "Đề 1",
+
+                  quizzes: [
+                    {
+                      id: "word-order-exam1-q1",
+
+                      question: "Câu nào đúng theo cấu trúc S - V - O?",
+
+                      options: [
+                        "Apples eat children.",
+                        "Children eat apples.",
+                        "Eat children apples.",
+                        "Apples children eat.",
+                      ],
+
+                      answer: 1,
+
+                      explanation: "Children = S, eat = V, apples = O.",
+                    },
+
+                    {
+                      id: "word-order-exam1-q2",
+
+                      question: "Câu nào đúng?",
+
+                      options: [
+                        "She books reads.",
+                        "Reads she books.",
+                        "She reads books.",
+                        "Books she reads.",
+                      ],
+
+                      answer: 2,
+
+                      explanation: "Cấu trúc đúng là S + V + O.",
+                    },
+                  ],
+                },
+
+                {
+                  id: "word-order-exam-2",
+                  name: "Đề 2",
+
+                  quizzes: [
+                    {
+                      id: "word-order-exam2-q1",
+
+                      question: "Which sentence is correct?",
+
+                      options: [
+                        "Tom football plays.",
+                        "Tom plays football.",
+                        "Football Tom plays.",
+                        "Plays Tom football.",
+                      ],
+
+                      answer: 1,
+
+                      explanation: "Tom + plays + football.",
+                    },
+
+                    {
+                      id: "word-order-exam2-q2",
+
+                      question: "Trong 'Tom plays football', đâu là Object?",
+
+                      options: ["Tom", "plays", "football", "Không có"],
+
+                      answer: 2,
+
+                      explanation: "'football' là Object.",
+                    },
+                  ],
+                },
+
+                {
+                  id: "word-order-exam-3",
+                  name: "Đề 3",
+
+                  quizzes: [
+                    {
+                      id: "word-order-exam3-q1",
+
+                      question: "Chọn câu có thứ tự từ đúng.",
+
+                      options: [
+                        "I English speak.",
+                        "English I speak.",
+                        "I speak English.",
+                        "Speak I English.",
+                      ],
+
+                      answer: 2,
+
+                      explanation: "I + speak + English.",
+                    },
+                  ],
+                },
+              ],
+
+              children: [],
+            },
+          ],
+        },
+      ];
+
+      /* =============================================================
+   STATE
+============================================================= */
+
+      let activeNodeId = null;
+      let activeExamId = null;
+
+      /* =============================================================
+   FIND NODE
+============================================================= */
+
+      function findNodeById(nodes, id) {
+        for (const node of nodes) {
+          if (node.id === id) {
+            return node;
+          }
+
+          if (Array.isArray(node.children)) {
+            const found = findNodeById(node.children, id);
+
+            if (found) {
+              return found;
+            }
+          }
+        }
+
+        return null;
+      }
+
+      /* =============================================================
+   FIND NODE PATH
+============================================================= */
+
+      function findNodePath(nodes, id, path = []) {
+        for (const node of nodes) {
+          const currentPath = [...path, node];
+
+          if (node.id === id) {
+            return currentPath;
+          }
+
+          if (node.children?.length) {
+            const result = findNodePath(node.children, id, currentPath);
+
+            if (result) {
+              return result;
+            }
+          }
+        }
+
+        return null;
+      }
+
+      /* =============================================================
+   FIND QUIZ
+============================================================= */
+
+      function findQuizById(nodes, quizId) {
+        for (const node of nodes) {
+          /*
+            FIX:
+
+            Trước đây code tìm:
+
+                node.quizzes
+
+            Nhưng data mới dùng:
+
+                node.exams[].quizzes[]
+        */
+
+          if (Array.isArray(node.exams)) {
+            for (const exam of node.exams) {
+              if (!Array.isArray(exam.quizzes)) {
+                continue;
+              }
+
+              const quiz = exam.quizzes.find((item) => item.id === quizId);
+
+              if (quiz) {
+                return quiz;
+              }
+            }
+          }
+
+          if (Array.isArray(node.children)) {
+            const found = findQuizById(node.children, quizId);
+
+            if (found) {
+              return found;
+            }
+          }
+        }
+
+        return null;
+      }
+
+      /* =============================================================
+   RENDER TREE
+============================================================= */
+
+      function renderTree() {
+        const treeRoot = document.getElementById("treeRoot");
+
+        treeRoot.innerHTML = renderNodeList(grammarData);
+      }
+
+      function renderNodeList(nodes) {
+        if (!nodes?.length) {
+          return "";
+        }
+
+        return `
+        <ul>
+            ${nodes.map((node) => renderNode(node)).join("")}
+        </ul>
+    `;
+      }
+
+      function renderNode(node) {
+        const hasChildren =
+          Array.isArray(node.children) && node.children.length > 0;
+
+        return `
+
+        <li
+            class="tree-node"
+            data-node-id="${node.id}"
+        >
+
+            <div class="node-content">
+
+                ${
+                  hasChildren
+                    ? `
+                    <button
+                        class="expand-btn"
+                        onclick="toggleNode(event, '${node.id}')"
+                    >
+                        <span class="expand-icon">
+                            ▶
+                        </span>
+                    </button>
+                    `
+                    : `
+                    <button
+                        class="expand-btn no-children"
+                        disabled
+                    ></button>
+                    `
+                }
+
+                <div
+                    class="category-title"
+                    data-node-id="${node.id}"
+                    onclick="selectNode('${node.id}')"
+                >
+                    ${escapeHtml(node.name)}
+                </div>
+
+            </div>
+
+            ${
+              hasChildren
+                ? `
+                <div class="children-list">
+                    ${renderNodeList(node.children)}
+                </div>
+                `
+                : ""
+            }
+
+        </li>
+    `;
+      }
+
+      /* =============================================================
+   TOGGLE
+============================================================= */
+
+      function toggleNode(event, nodeId) {
+        event.stopPropagation();
+
+        const node = document.querySelector(
+          `.tree-node[data-node-id="${nodeId}"]`,
+        );
+
+        if (!node) return;
+
+        node.classList.toggle("open");
+      }
+
+      /* =============================================================
+   SELECT CATEGORY
+============================================================= */
+
+      function selectNode(nodeId) {
+        const node = findNodeById(grammarData, nodeId);
+
+        if (!node) return;
+
+        activeNodeId = nodeId;
+
+        activeExamId = null;
+
+        document.querySelectorAll(".category-title").forEach((el) => {
+          el.classList.remove("active");
+        });
+
+        const activeElement = document.querySelector(
+          `.category-title[data-node-id="${nodeId}"]`,
+        );
+
+        if (activeElement) {
+          activeElement.classList.add("active");
+        }
+
+        if (node.children?.length) {
+          const treeNode = document.querySelector(
+            `.tree-node[data-node-id="${nodeId}"]`,
+          );
+
+          if (treeNode) {
+            treeNode.classList.add("open");
+          }
+        }
+
+        renderNodeContent(node);
+      }
+
+      /* =============================================================
+   RENDER CATEGORY
+============================================================= */
+
+      function renderNodeContent(node) {
+        const mainContent = document.getElementById("mainContent");
+
+        const path = findNodePath(grammarData, node.id) || [];
+
+        const breadcrumb = path
+          .map((item) => escapeHtml(item.name))
+          .join(" → ");
+
+        const exams = Array.isArray(node.exams) ? node.exams : [];
+
+        /*
+        Nếu category có đề,
+        mặc định chọn đề đầu tiên.
+    */
+
+        if (exams.length > 0) {
+          if (!exams.some((exam) => exam.id === activeExamId)) {
+            activeExamId = exams[0].id;
+          }
+        } else {
+          activeExamId = null;
+        }
+
+        mainContent.innerHTML = `
+
+        <div class="card">
+
+            <div class="breadcrumb">
+                ${breadcrumb}
+            </div>
+
+            <div class="theory-title">
+
+                <h1>
+                    ${escapeHtml(node.name)}
+                </h1>
+
+                <span class="theory-badge">
+                    THEORY
+                </span>
+
+            </div>
+
+            ${
+              node.theory
+                ? `
+                <div class="theory-content">
+                    ${escapeHtml(node.theory)}
+                </div>
+                `
+                : `
+                <div class="empty-state">
+                    Category này chưa có lý thuyết.
+                </div>
+                `
+            }
+
+        </div>
+
+
+        <div class="card quiz-section">
+
+            <div class="quiz-header">
+
+                <div class="exam-title">
+                    Đề luyện tập
+                </div>
+
+                <div class="quiz-count">
+                    ${exams.length} đề
+                </div>
+
+            </div>
+
+
+            ${renderExamSelector(exams)}
+
+
+            ${renderActiveExam(exams)}
+
+        </div>
+    `;
+      }
+
+      /* =============================================================
+   EXAM SELECTOR
+============================================================= */
+
+      function renderExamSelector(exams) {
+        if (!Array.isArray(exams) || exams.length === 0) {
+          return `
+            <div class="empty-state">
+                Category này chưa có đề.
+            </div>
+        `;
+        }
+
+        const activeIndex = exams.findIndex((exam) => exam.id === activeExamId);
+
+        return `
+
+        <div class="exam-selector">
+
+            <button
+                class="exam-nav-btn"
+                onclick="changeExam(-1)"
+                ${activeIndex <= 0 ? "disabled" : ""}
+            >
+                ← Đề trước
+            </button>
+
+
+            <div class="exam-list">
+
+                ${exams
+                  .map(
+                    (exam, index) => `
+
+                        <button
+                            class="
+                                exam-tab
+                                ${exam.id === activeExamId ? "active" : ""}
+                            "
+                            onclick="selectExam('${exam.id}')"
+                        >
+                            ${escapeHtml(exam.name || `Đề ${index + 1}`)}
+                        </button>
+
+                    `,
+                  )
+                  .join("")}
+
+            </div>
+
+
+            <button
+                class="exam-nav-btn"
+                onclick="changeExam(1)"
+                ${activeIndex >= exams.length - 1 ? "disabled" : ""}
+            >
+                Đề sau →
+            </button>
+
+        </div>
+    `;
+      }
+
+      /* =============================================================
+   ACTIVE EXAM
+============================================================= */
+
+      function renderActiveExam(exams) {
+        if (!Array.isArray(exams) || exams.length === 0) {
+          return "";
+        }
+
+        const exam = exams.find((item) => item.id === activeExamId);
+
+        if (!exam) {
+          return "";
+        }
+
+        const quizzes = Array.isArray(exam.quizzes) ? exam.quizzes : [];
+
+        return `
+
+        <div class="quiz-header">
+
+            <div class="quiz-title">
+                ${escapeHtml(exam.name)}
+            </div>
+
+            <div class="quiz-count">
+                ${quizzes.length} câu hỏi
+            </div>
+
+        </div>
+
+
+        ${renderQuizzes(quizzes)}
+
+    `;
+      }
+
+      /* =============================================================
+   SELECT EXAM
+============================================================= */
+
+      function selectExam(examId) {
+        const node = findNodeById(grammarData, activeNodeId);
+
+        if (!node) return;
+
+        if (!Array.isArray(node.exams)) {
+          return;
+        }
+
+        const exam = node.exams.find((item) => item.id === examId);
+
+        if (!exam) return;
+
+        activeExamId = examId;
+
+        renderNodeContent(node);
+
+        /*
+        Sau khi render lại selector,
+        tự scroll đến đề đang active.
+    */
+        requestAnimationFrame(() => {
+          const activeTab = document.querySelector(".exam-tab.active");
+
+          if (activeTab) {
+            activeTab.scrollIntoView({
+              behavior: "smooth",
+              block: "nearest",
+              inline: "center",
+            });
+          }
+        });
+      }
+
+      /* =============================================================
+   NEXT / PREVIOUS EXAM
+============================================================= */
+
+      function changeExam(direction) {
+        const node = findNodeById(grammarData, activeNodeId);
+
+        if (!node) return;
+
+        if (!Array.isArray(node.exams)) {
+          return;
+        }
+
+        const currentIndex = node.exams.findIndex(
+          (exam) => exam.id === activeExamId,
+        );
+
+        if (currentIndex === -1) {
+          activeExamId = node.exams[0]?.id || null;
+
+          renderNodeContent(node);
+
+          return;
+        }
+
+        const nextIndex = currentIndex + direction;
+
+        if (nextIndex < 0 || nextIndex >= node.exams.length) {
+          return;
+        }
+
+        activeExamId = node.exams[nextIndex].id;
+
+        renderNodeContent(node);
+
+        /*
+        Scroll tới tab đề hiện tại
+    */
+        requestAnimationFrame(() => {
+          const activeTab = document.querySelector(".exam-tab.active");
+
+          if (activeTab) {
+            activeTab.scrollIntoView({
+              behavior: "smooth",
+              block: "nearest",
+              inline: "center",
+            });
+          }
+        });
+      }
+
+      /* =============================================================
+   RENDER QUIZZES
+============================================================= */
+
+      function renderQuizzes(quizzes) {
+        if (!Array.isArray(quizzes) || quizzes.length === 0) {
+          return `
+            <div class="empty-state">
+                Đề này chưa có câu hỏi.
+            </div>
+        `;
+        }
+
+        return quizzes
+          .map(
+            (quiz, index) => `
+
+            <div
+                class="question-box"
+                id="quiz-${escapeHtml(quiz.id)}"
+            >
+
+                <div class="question-number">
+                    CÂU ${index + 1}
+                </div>
+
+
+                <div class="question-title">
+                    ${escapeHtml(quiz.question)}
+                </div>
+
+
+                <div class="options-list">
+
+                    ${quiz.options
+                      .map(
+                        (option, optionIndex) => `
+
+                                <label class="option-label">
+
+                                    <input
+                                        type="radio"
+                                        name="quiz-${quiz.id}"
+                                        value="${optionIndex}"
+                                    >
+
+                                    <span>
+                                        ${escapeHtml(option)}
+                                    </span>
+
+                                </label>
+
+                            `,
+                      )
+                      .join("")}
+
+                </div>
+
+
+                <button
+                    class="submit-btn"
+                    onclick="checkAnswer('${quiz.id}')"
+                >
+                    Kiểm tra
+                </button>
+
+
+                <div
+                    class="result-msg"
+                    id="result-${quiz.id}"
+                ></div>
+
+            </div>
+
+        `,
+          )
+          .join("");
+      }
+
+      /* =============================================================
+   CHECK ANSWER
+============================================================= */
+
+      function checkAnswer(quizId) {
+        const quiz = findQuizById(grammarData, quizId);
+
+        if (!quiz) {
+          console.error("Không tìm thấy quiz:", quizId);
+
+          return;
+        }
+
+        const selected = document.querySelector(
+          `input[name="quiz-${quizId}"]:checked`,
+        );
+
+        const resultMsg = document.getElementById(`result-${quizId}`);
+
+        if (!selected) {
+          resultMsg.innerHTML = `
+
+            <span class="incorrect">
+                Vui lòng chọn một đáp án trước khi kiểm tra!
+            </span>
+
+        `;
+
+          return;
+        }
+
+        const userChoice = Number(selected.value);
+
+        if (userChoice === quiz.answer) {
+          resultMsg.innerHTML = `
+
+            <span class="correct">
+                Chính xác! 🎉
+            </span>
+
+            <br>
+
+            <span style="
+                font-weight: normal;
+                color: #475569;
+            ">
+                Giải thích:
+                ${escapeHtml(quiz.explanation)}
+            </span>
+
+        `;
+        } else {
+          resultMsg.innerHTML = `
+
+            <span class="incorrect">
+                Chưa chính xác. Hãy thử lại nhé! 💡
+            </span>
+
+            <br>
+
+            <span style="
+                font-weight: normal;
+                color: #475569;
+            ">
+                Giải thích:
+                ${escapeHtml(quiz.explanation)}
+            </span>
+
+        `;
+        }
+      }
+
+      /* =============================================================
+   ESCAPE HTML
+============================================================= */
+
+      function escapeHtml(value) {
+        if (value === undefined || value === null) {
+          return "";
+        }
+
+        return String(value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      /* =============================================================
+   INIT
+============================================================= */
+
+      renderTree();
+    </script>
+  </body>
+</html>
