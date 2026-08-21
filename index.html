@@ -554,13 +554,13 @@
 
     <script>
       /* =============================================================
-         LANGUAGE
-      =============================================================
+           LANGUAGE
+        =============================================================
 
-         0 = VI
-         1 = EN
+           0 = VI
+           1 = EN
 
-      ============================================================= */
+        ============================================================= */
 
       let currentLanguage = "vi";
 
@@ -570,59 +570,59 @@
       };
 
       /* =============================================================
-         GRAMMAR DATA
-      =============================================================
+           GRAMMAR DATA
+        =============================================================
 
-      QUY ƯỚC:
+        QUY ƯỚC:
 
-      name:
-          ["Tiếng Việt", "English"]
+        name:
+            ["Tiếng Việt", "English"]
 
-      theory:
-          ["Lý thuyết tiếng Việt", "English theory"]
+        theory:
+            ["Lý thuyết tiếng Việt", "English theory"]
 
-      question:
-          ["Câu hỏi tiếng Việt", "English question"]
+        question:
+            ["Câu hỏi tiếng Việt", "English question"]
 
-      explanation:
-          ["Giải thích tiếng Việt", "English explanation"]
-    
-    CẤU TRÚC DỮ LIỆU:
-      children : [
-      {
-        id: "english",
+        explanation:
+            ["Giải thích tiếng Việt", "English explanation"]
 
-        name: ["Ngữ pháp Tiếng Anh", "English Grammar"],
+      CẤU TRÚC DỮ LIỆU:
+        children : [
+        {
+          id: "english",
 
-        theory: [
-        "Ngữ pháp tiếng Anh là nền tảng để xây dựng câu.",
-        "English grammar is the foundation for building sentences.",
-        ],
+          name: ["Ngữ pháp Tiếng Anh", "English Grammar"],
 
-        exams: [{
-            id: "pos-exam-1",
+          theory: [
+          "Ngữ pháp tiếng Anh là nền tảng để xây dựng câu.",
+          "English grammar is the foundation for building sentences.",
+          ],
 
-            name: ["Đề 1 - Cơ bản", "Exam 1 - Basic"],
+          exams: [{
+              id: "pos-exam-1",
 
-            quizzes: [{
-                id: "pos-exam1-q1",
+              name: ["Đề 1 - Cơ bản", "Exam 1 - Basic"],
 
-                question: [
-                "Từ nào sau đây là danh từ?",
-                "Which of the following words is a noun?",
-                ],
+              quizzes: [{
+                  id: "pos-exam1-q1",
 
-                options: ["Run", "Cat", "Beautiful", "Quickly"],
+                  question: [
+                  "Từ nào sau đây là danh từ?",
+                  "Which of the following words is a noun?",
+                  ],
 
-                answer: 1,
+                  options: ["Run", "Cat", "Beautiful", "Quickly"],
 
-                explanation: ["'Cat' là danh từ.", "'Cat' is a noun."],
-            }]
-        }],
-        children: []
-    }]
+                  answer: 1,
 
-      ============================================================= */
+                  explanation: ["'Cat' là danh từ.", "'Cat' is a noun."],
+              }]
+          }],
+          children: []
+      }]
+
+        ============================================================= */
 
       const grammarData = [
         {
@@ -640,1029 +640,185 @@
           children: [
             {
               id: "parts-of-speech",
-
-              name: ["1. LOẠI TỪ (PARTS OF SPEECH)", "1. PARTS OF SPEECH"],
-
-              theory: [
-                `Các loại từ là nền tảng của ngữ pháp tiếng Anh.
-
-Mỗi loại từ có chức năng khác nhau:
-Danh từ, động từ, tính từ, trạng từ, đại từ...`,
-
-                `Parts of speech are the foundation of English grammar.
-
-Each part of speech has a different function:
-Nouns, verbs, adjectives, adverbs, pronouns...`,
-              ],
-
-              exams: [
-                {
-                  id: "pos-exam-1",
-
-                  name: ["Đề 1 - Cơ bản", "Exam 1 - Basic"],
-
-                  quizzes: [
-                    {
-                      id: "pos-exam1-q1",
-
-                      question: [
-                        "Từ nào sau đây là danh từ?",
-                        "Which of the following words is a noun?",
-                      ],
-
-                      options: ["Run", "Cat", "Beautiful", "Quickly"],
-
-                      answer: 1,
-
-                      explanation: ["'Cat' là danh từ.", "'Cat' is a noun."],
-                    },
-
-                    {
-                      id: "pos-exam1-q2",
-
-                      question: [
-                        "Từ nào sau đây là động từ?",
-                        "Which of the following words is a verb?",
-                      ],
-
-                      options: ["Beautiful", "Happiness", "Run", "Slowly"],
-
-                      answer: 2,
-
-                      explanation: ["'Run' là động từ.", "'Run' is a verb."],
-                    },
-
-                    {
-                      id: "pos-exam1-q3",
-
-                      question: [
-                        "Từ nào sau đây là tính từ?",
-                        "Which of the following words is an adjective?",
-                      ],
-
-                      options: ["Beautiful", "Run", "Dog", "Quickly"],
-
-                      answer: 0,
-
-                      explanation: [
-                        "'Beautiful' là tính từ.",
-                        "'Beautiful' is an adjective.",
-                      ],
-                    },
-                  ],
-                },
-
-                {
-                  id: "pos-exam-2",
-
-                  name: ["Đề 2 - Nâng cao", "Exam 2 - Advanced"],
-
-                  quizzes: [
-                    {
-                      id: "pos-exam2-q1",
-
-                      question: [
-                        "Trong câu 'She sings beautifully', từ 'beautifully' là gì?",
-                        "In the sentence 'She sings beautifully', what is 'beautifully'?",
-                      ],
-
-                      options: ["Danh từ", "Động từ", "Tính từ", "Trạng từ"],
-
-                      answer: 3,
-
-                      explanation: [
-                        "'Beautifully' là trạng từ.",
-                        "'Beautifully' is an adverb.",
-                      ],
-                    },
-
-                    {
-                      id: "pos-exam2-q2",
-
-                      question: [
-                        "Từ nào là đại từ?",
-                        "Which word is a pronoun?",
-                      ],
-
-                      options: ["They", "Beautiful", "House", "Quickly"],
-
-                      answer: 0,
-
-                      explanation: [
-                        "'They' là đại từ.",
-                        "'They' is a pronoun.",
-                      ],
-                    },
-
-                    {
-                      id: "pos-exam2-q3",
-
-                      question: [
-                        "Từ nào là giới từ?",
-                        "Which word is a preposition?",
-                      ],
-
-                      options: ["Under", "Run", "Happy", "Dog"],
-
-                      answer: 0,
-
-                      explanation: [
-                        "'Under' là giới từ.",
-                        "'Under' is a preposition.",
-                      ],
-                    },
-                  ],
-                },
-
-                {
-                  id: "pos-exam-3",
-
-                  name: ["Đề 3 - Tổng hợp", "Exam 3 - Review"],
-
-                  quizzes: [
-                    {
-                      id: "pos-exam3-q1",
-
-                      question: ["Từ nào là danh từ?", "Which word is a noun?"],
-
-                      options: ["Teacher", "Quickly", "Beautiful", "Run"],
-
-                      answer: 0,
-
-                      explanation: [
-                        "'Teacher' là danh từ.",
-                        "'Teacher' is a noun.",
-                      ],
-                    },
-
-                    {
-                      id: "pos-exam3-q2",
-
-                      question: [
-                        "Từ nào là tính từ?",
-                        "Which word is an adjective?",
-                      ],
-
-                      options: ["Slowly", "Beautiful", "Run", "School"],
-
-                      answer: 1,
-
-                      explanation: [
-                        "'Beautiful' là tính từ.",
-                        "'Beautiful' is an adjective.",
-                      ],
-                    },
-
-                    {
-                      id: "pos-exam3-q3",
-
-                      question: [
-                        "Từ nào là trạng từ?",
-                        "Which word is an adverb?",
-                      ],
-
-                      options: ["Quickly", "Quick", "Car", "Drive"],
-
-                      answer: 0,
-
-                      explanation: [
-                        "'Quickly' là trạng từ.",
-                        "'Quickly' is an adverb.",
-                      ],
-                    },
-                  ],
-                },
-              ],
-
+              name: ["1. TỪ", "1. Parts of Speech"],
+              theory: [],
+              exams: [],
               children: [
                 {
-                  id: "common-noun",
-
-                  name: ["Danh từ chung (Common Noun)", "Common Noun"],
-
-                  theory: [
-                    `Danh từ chung dùng để chỉ những sự vật,
-hiện tượng chung trong cùng một loại.
-
-Ví dụ:
-dog, city, car, table.`,
-
-                    `A common noun refers to general people,
-places, things, or ideas.
-
-Examples:
-dog, city, car, table.`,
-                  ],
-
-                  exams: [
-                    {
-                      id: "common-exam-1",
-
-                      name: ["Đề 1", "Exam 1"],
-
-                      quizzes: [
-                        {
-                          id: "common-exam1-q1",
-
-                          question: [
-                            "Từ nào sau đây là danh từ chung?",
-                            "Which of the following is a common noun?",
-                          ],
-
-                          options: ["London", "Cat", "Viet Nam", "Microsoft"],
-
-                          answer: 1,
-
-                          explanation: [
-                            "'Cat' là danh từ chung.",
-                            "'Cat' is a common noun.",
-                          ],
-                        },
-
-                        {
-                          id: "common-exam1-q2",
-
-                          question: [
-                            "Từ nào sau đây là danh từ chung?",
-                            "Which of the following is a common noun?",
-                          ],
-
-                          options: ["John", "Paris", "Dog", "Google"],
-
-                          answer: 2,
-
-                          explanation: [
-                            "'Dog' là danh từ chung.",
-                            "'Dog' is a common noun.",
-                          ],
-                        },
-                      ],
-                    },
-
-                    {
-                      id: "common-exam-2",
-
-                      name: ["Đề 2", "Exam 2"],
-
-                      quizzes: [
-                        {
-                          id: "common-exam2-q1",
-
-                          question: [
-                            "Từ nào là danh từ chung?",
-                            "Which is a common noun?",
-                          ],
-
-                          options: ["London", "Teacher", "John", "Google"],
-
-                          answer: 1,
-
-                          explanation: [
-                            "'Teacher' là danh từ chung.",
-                            "'Teacher' is a common noun.",
-                          ],
-                        },
-
-                        {
-                          id: "common-exam2-q2",
-
-                          question: [
-                            "Từ nào KHÔNG phải là danh từ riêng?",
-                            "Which word is NOT a proper noun?",
-                          ],
-
-                          options: ["Paris", "John", "School", "London"],
-
-                          answer: 2,
-
-                          explanation: [
-                            "'School' là danh từ chung.",
-                            "'School' is a common noun.",
-                          ],
-                        },
-                      ],
-                    },
-                  ],
-
+                  id: "verb",
+                  name: ["1. Động từ", "Verb"],
+                  theory: [],
+                  exams: [],
                   children: [
                     {
-                      id: "animal-noun",
-
-                      name: ["Danh từ chỉ động vật", "Animal Nouns"],
-
-                      theory: [
-                        `Danh từ chỉ động vật dùng để gọi tên
-các loài động vật.
-
-Ví dụ:
-dog, cat, bird, elephant.`,
-
-                        `Animal nouns are words used to name
-different kinds of animals.
-
-Examples:
-dog, cat, bird, elephant.`,
-                      ],
-
-                      exams: [
-                        {
-                          id: "animal-exam-1",
-
-                          name: ["Đề 1", "Exam 1"],
-
-                          quizzes: [
-                            {
-                              id: "animal-exam1-q1",
-
-                              question: [
-                                "Từ nào là danh từ chỉ động vật?",
-                                "Which word is an animal noun?",
-                              ],
-
-                              options: ["Table", "Tiger", "Teacher", "School"],
-
-                              answer: 1,
-
-                              explanation: [
-                                "'Tiger' là động vật.",
-                                "'Tiger' is an animal.",
-                              ],
-                            },
-
-                            {
-                              id: "animal-exam1-q2",
-
-                              question: [
-                                "Từ nào là động vật?",
-                                "Which word is an animal?",
-                              ],
-
-                              options: ["Chair", "Lion", "Book", "House"],
-
-                              answer: 1,
-
-                              explanation: [
-                                "'Lion' là động vật.",
-                                "'Lion' is an animal.",
-                              ],
-                            },
-                          ],
-                        },
-
-                        {
-                          id: "animal-exam-2",
-
-                          name: ["Đề 2", "Exam 2"],
-
-                          quizzes: [
-                            {
-                              id: "animal-exam2-q1",
-
-                              question: [
-                                "Từ nào là động vật?",
-                                "Which word is an animal?",
-                              ],
-
-                              options: ["Dog", "Table", "Computer", "School"],
-
-                              answer: 0,
-
-                              explanation: [
-                                "'Dog' là động vật.",
-                                "'Dog' is an animal.",
-                              ],
-                            },
-
-                            {
-                              id: "animal-exam2-q2",
-
-                              question: [
-                                "Từ nào KHÔNG phải là động vật?",
-                                "Which word is NOT an animal?",
-                              ],
-
-                              options: ["Cat", "Tiger", "House", "Lion"],
-
-                              answer: 2,
-
-                              explanation: [
-                                "'House' không phải động vật.",
-                                "'House' is not an animal.",
-                              ],
-                            },
-                          ],
-                        },
-
-                        {
-                          id: "animal-exam-3",
-
-                          name: ["Đề 3", "Exam 3"],
-
-                          quizzes: [
-                            {
-                              id: "animal-exam3-q1",
-
-                              question: [
-                                "Con vật nào có thể bay?",
-                                "Which animal can fly?",
-                              ],
-
-                              options: ["Bird", "Dog", "Cat", "Horse"],
-
-                              answer: 0,
-
-                              explanation: [
-                                "Bird là chim và có thể bay.",
-                                "A bird can fly.",
-                              ],
-                            },
-
-                            {
-                              id: "animal-exam3-q2",
-
-                              question: [
-                                "Con vật nào sống dưới nước?",
-                                "Which animal lives in water?",
-                              ],
-
-                              options: ["Fish", "Dog", "Cat", "Horse"],
-
-                              answer: 0,
-
-                              explanation: [
-                                "Fish sống dưới nước.",
-                                "Fish live in water.",
-                              ],
-                            },
-                          ],
-                        },
-                      ],
-
+                      id: "tenses",
+                      name: ["1. Thì", "Tenses"],
+                      theory: [],
+                      exams: [],
+                      children: [],
+                    },
+                    {
+                      id: "Modals",
+                      name: ["2. Modal", "Modals"],
+                      theory: [],
+                      exams: [],
+                      children: [],
+                    },
+                    {
+                      id: "passive",
+                      name: ["3. Bị động", "Passive"],
+                      theory: [],
+                      exams: [],
+                      children: [],
+                    },
+                    {
+                      id: "-ing-and-to",
+                      name: ["4. -ing and to …", "-ing and to …"],
+                      theory: [],
+                      exams: [],
                       children: [],
                     },
                   ],
                 },
-
                 {
-                  id: "proper-noun",
-
-                  name: ["Danh từ riêng (Proper Noun)", "Proper Noun"],
-
-                  theory: [
-                    `Danh từ riêng là tên riêng của người,
-địa điểm, tổ chức.
-
-Ví dụ:
-John, Hanoi, Google.`,
-
-                    `A proper noun is the specific name of a person,
-place, organization, or thing.
-
-Examples:
-John, Hanoi, Google.`,
-                  ],
-
-                  exams: [
-                    {
-                      id: "proper-exam-1",
-
-                      name: ["Đề 1", "Exam 1"],
-
-                      quizzes: [
-                        {
-                          id: "proper-exam1-q1",
-
-                          question: [
-                            "Từ nào là danh từ riêng?",
-                            "Which word is a proper noun?",
-                          ],
-
-                          options: ["teacher", "Paris", "mountain", "river"],
-
-                          answer: 1,
-
-                          explanation: [
-                            "'Paris' là tên riêng.",
-                            "'Paris' is a proper noun.",
-                          ],
-                        },
-
-                        {
-                          id: "proper-exam1-q2",
-
-                          question: [
-                            "Từ nào cần viết hoa?",
-                            "Which word should be capitalized?",
-                          ],
-
-                          options: ["city", "school", "London", "country"],
-
-                          answer: 2,
-
-                          explanation: [
-                            "'London' là tên riêng.",
-                            "'London' is a proper noun.",
-                          ],
-                        },
-                      ],
-                    },
-
-                    {
-                      id: "proper-exam-2",
-
-                      name: ["Đề 2", "Exam 2"],
-
-                      quizzes: [
-                        {
-                          id: "proper-exam2-q1",
-
-                          question: [
-                            "Từ nào là danh từ riêng?",
-                            "Which is a proper noun?",
-                          ],
-
-                          options: ["city", "teacher", "Hanoi", "school"],
-
-                          answer: 2,
-
-                          explanation: [
-                            "'Hanoi' là tên riêng.",
-                            "'Hanoi' is a proper noun.",
-                          ],
-                        },
-
-                        {
-                          id: "proper-exam2-q2",
-
-                          question: [
-                            "Từ nào cần viết hoa?",
-                            "Which word should be capitalized?",
-                          ],
-
-                          options: ["country", "vietnam", "school", "teacher"],
-
-                          answer: 1,
-
-                          explanation: [
-                            "Vietnam là tên riêng.",
-                            "Vietnam is a proper noun.",
-                          ],
-                        },
-                      ],
-                    },
-                  ],
-
+                  id: "noun",
+                  name: ["2. Danh từ", "Noun"],
+                  theory: [],
+                  exams: [],
+                  children: [],
+                },
+                {
+                  id: "articles",
+                  name: ["3. Mạo từ", "Articles"],
+                  theory: [],
+                  exams: [],
+                  children: [],
+                },
+                {
+                  id: "pronouns",
+                  name: ["3. Đại từ", "Pronouns"],
+                  theory: [],
+                  exams: [],
+                  children: [],
+                },
+                {
+                  id: "determiners",
+                  name: ["4. Từ hạn định", "Determiners"],
+                  theory: [],
+                  exams: [],
+                  children: [],
+                },
+                {
+                  id: "adjectives",
+                  name: ["5. Tính từ", "Adjectives"],
+                  theory: [],
+                  exams: [],
+                  children: [],
+                },
+                {
+                  id: "adverbs",
+                  name: ["6. Trạng từ", "Adverbs"],
+                  theory: [],
+                  exams: [],
+                  children: [],
+                },
+                {
+                  id: "conjunctions",
+                  name: ["7. Liên từ", "Conjunctions"],
+                  theory: [],
+                  exams: [],
+                  children: [],
+                },
+                {
+                  id: "prepositions",
+                  name: ["8. Giới từ", "prepositions"],
+                  theory: [],
+                  exams: [],
                   children: [],
                 },
               ],
             },
-
             {
-              id: "tenses",
-
-              name: ["2. THÌ (TENSES)", "2. TENSES"],
-
-              theory: [
-                `Thì trong tiếng Anh thể hiện thời điểm
-hoặc trạng thái của hành động.`,
-
-                `English tenses show the time
-or state of an action.`,
-              ],
-
-              exams: [
-                {
-                  id: "tenses-exam-1",
-
-                  name: ["Đề 1 - Hiện tại đơn", "Exam 1 - Present Simple"],
-
-                  quizzes: [
-                    {
-                      id: "tenses-exam1-q1",
-
-                      question: [
-                        "He usually ___ to school by bus.",
-                        "He usually ___ to school by bus.",
-                      ],
-
-                      options: ["go", "goes", "going", "gone"],
-
-                      answer: 1,
-
-                      explanation: [
-                        "He là ngôi thứ ba số ít nên dùng goes.",
-                        "He is third-person singular, so we use goes.",
-                      ],
-                    },
-
-                    {
-                      id: "tenses-exam1-q2",
-
-                      question: [
-                        "She ___ English every day.",
-                        "She ___ English every day.",
-                      ],
-
-                      options: ["study", "studies", "studying", "studied"],
-
-                      answer: 1,
-
-                      explanation: ["She → studies.", "She → studies."],
-                    },
-
-                    {
-                      id: "tenses-exam1-q3",
-
-                      question: [
-                        "The sun ___ in the east.",
-                        "The sun ___ in the east.",
-                      ],
-
-                      options: ["rise", "rises", "rising", "rose"],
-
-                      answer: 1,
-
-                      explanation: [
-                        "Đây là sự thật hiển nhiên nên dùng hiện tại đơn.",
-                        "This is a general truth, so we use the present simple.",
-                      ],
-                    },
-                  ],
-                },
-
-                {
-                  id: "tenses-exam-2",
-
-                  name: ["Đề 2 - Quá khứ đơn", "Exam 2 - Past Simple"],
-
-                  quizzes: [
-                    {
-                      id: "tenses-exam2-q1",
-
-                      question: [
-                        "Yesterday, I ___ to school.",
-                        "Yesterday, I ___ to school.",
-                      ],
-
-                      options: ["go", "goes", "went", "going"],
-
-                      answer: 2,
-
-                      explanation: [
-                        "Yesterday → quá khứ đơn → went.",
-                        "Yesterday → past simple → went.",
-                      ],
-                    },
-
-                    {
-                      id: "tenses-exam2-q2",
-
-                      question: [
-                        "She ___ a movie last night.",
-                        "She ___ a movie last night.",
-                      ],
-
-                      options: ["watch", "watched", "watches", "watching"],
-
-                      answer: 1,
-
-                      explanation: [
-                        "Last night → quá khứ đơn.",
-                        "Last night → past simple.",
-                      ],
-                    },
-                  ],
-                },
-
-                {
-                  id: "tenses-exam-3",
-
-                  name: ["Đề 3 - Tổng hợp", "Exam 3 - Review"],
-
-                  quizzes: [
-                    {
-                      id: "tenses-exam3-q1",
-
-                      question: [
-                        "Tôi uống cà phê mỗi sáng.",
-                        "I ___ coffee every morning.",
-                      ],
-
-                      options: ["drink", "drank", "drinking", "drunk"],
-
-                      answer: 0,
-
-                      explanation: [
-                        "Every morning → hiện tại đơn.",
-                        "Every morning → present simple.",
-                      ],
-                    },
-
-                    {
-                      id: "tenses-exam3-q2",
-
-                      question: [
-                        "Tôi gặp anh ấy hôm qua.",
-                        "I ___ him yesterday.",
-                      ],
-
-                      options: ["see", "sees", "saw", "seeing"],
-
-                      answer: 2,
-
-                      explanation: [
-                        "Yesterday → quá khứ đơn → saw.",
-                        "Yesterday → past simple → saw.",
-                      ],
-                    },
-
-                    {
-                      id: "tenses-exam3-q3",
-
-                      question: [
-                        "Cô ấy sống ở đây từ năm 2020.",
-                        "She ___ here since 2020.",
-                      ],
-
-                      options: ["lives", "lived", "has lived", "living"],
-
-                      answer: 2,
-
-                      explanation: [
-                        "Since 2020 → hiện tại hoàn thành.",
-                        "Since 2020 → present perfect.",
-                      ],
-                    },
-                  ],
-                },
-              ],
-
+              id: "phrases",
+              name: ["2. CỤM TỪ", "2. Phrases"],
+              theory: [],
+              exams: [],
               children: [
                 {
-                  id: "present-simple",
-
-                  name: ["Hiện tại đơn (Present Simple)", "Present Simple"],
-
-                  theory: [
-                    `Hiện tại đơn dùng để diễn tả:
-
-- Thói quen
-- Sự thật
-- Chân lý
-- Lịch trình cố định
-
-Cấu trúc:
-
-S + V(s/es)`,
-
-                    `The present simple is used for:
-
-- Habits
-- Facts
-- General truths
-- Fixed schedules
-
-Structure:
-
-S + V(s/es)`,
-                  ],
-
-                  exams: [
-                    {
-                      id: "present-exam-1",
-
-                      name: ["Đề 1", "Exam 1"],
-
-                      quizzes: [
-                        {
-                          id: "present-exam1-q1",
-
-                          question: [
-                            "She ___ English every day.",
-                            "She ___ English every day.",
-                          ],
-
-                          options: ["study", "studies", "studying", "studied"],
-
-                          answer: 1,
-
-                          explanation: ["She → studies.", "She → studies."],
-                        },
-
-                        {
-                          id: "present-exam1-q2",
-
-                          question: [
-                            "He ___ football every Sunday.",
-                            "He ___ football every Sunday.",
-                          ],
-
-                          options: ["play", "plays", "playing", "played"],
-
-                          answer: 1,
-
-                          explanation: ["He → plays.", "He → plays."],
-                        },
-                      ],
-                    },
-
-                    {
-                      id: "present-exam-2",
-
-                      name: ["Đề 2", "Exam 2"],
-
-                      quizzes: [
-                        {
-                          id: "present-exam2-q1",
-
-                          question: [
-                            "Bố tôi uống cà phê mỗi sáng.",
-                            "My father ___ coffee every morning.",
-                          ],
-
-                          options: ["drink", "drinks", "drinking", "drank"],
-
-                          answer: 1,
-
-                          explanation: [
-                            "My father là ngôi thứ ba số ít.",
-                            "My father is third-person singular.",
-                          ],
-                        },
-
-                        {
-                          id: "present-exam2-q2",
-
-                          question: [
-                            "Họ học tiếng Anh ở trường.",
-                            "They ___ English at school.",
-                          ],
-
-                          options: ["study", "studies", "studying", "studied"],
-
-                          answer: 0,
-
-                          explanation: ["They → study.", "They → study."],
-                        },
-                      ],
-                    },
-                  ],
-
+                  id: "phrasal-verbs",
+                  name: ["1. Cụm động từ", "Phrasal verbs"],
+                  theory: [],
+                  exams: [],
                   children: [],
                 },
               ],
             },
-
+            {
+              id: "sentences",
+              name: ["3. CÂU", "3. SENTENCES"],
+              theory: [],
+              exams: [],
+              children: [
+                {
+                  id: "reported-speech",
+                  name: ["1. Câu gián tiếp", "Reported speech"],
+                  theory: [],
+                  exams: [],
+                  children: [],
+                },
+                {
+                  id: "questions-and-auxiliary-verbs",
+                  name: [
+                    "2. Câu hỏi và động từ phụ trợ",
+                    "Questions and auxiliary verbs",
+                  ],
+                  theory: [],
+                  exams: [],
+                  children: [],
+                },
+                {
+                  id: "clauses",
+                  name: ["3. Mệnh đề", "clauses"],
+                  theory: [],
+                  exams: [],
+                  children: [
+                    {
+                      id: "relative-clauses",
+                      name: ["1. Mệnh đề quan hệ", "Relative clauses"],
+                      theory: [],
+                      exams: [],
+                      children: [],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              id: "syntactic-functions",
+              name: ["4. CHỨC NĂNG CÚ PHÁP", "4. SYNTACTIC FUNCTIONS"],
+              theory: [],
+              exams: [],
+              children: [],
+            },
             {
               id: "word-order",
-
-              name: ["3. THỨ TỰ TỪ (WORD ORDER)", "3. WORD ORDER"],
-
-              theory: [
-                `Trong tiếng Anh, vị trí của từ trong câu
-có vai trò rất quan trọng.
-
-Cấu trúc cơ bản:
-
-Subject + Verb + Object.`,
-
-                `In English, word order is very important.
-
-Basic structure:
-
-Subject + Verb + Object.`,
-              ],
-
-              exams: [
-                {
-                  id: "word-order-exam-1",
-
-                  name: ["Đề 1", "Exam 1"],
-
-                  quizzes: [
-                    {
-                      id: "word-order-exam1-q1",
-
-                      question: [
-                        "Câu nào đúng theo cấu trúc S - V - O?",
-                        "Which sentence follows the S - V - O structure?",
-                      ],
-
-                      options: [
-                        "Apples eat children.",
-                        "Children eat apples.",
-                        "Eat children apples.",
-                        "Apples children eat.",
-                      ],
-
-                      answer: 1,
-
-                      explanation: [
-                        "Children = S, eat = V, apples = O.",
-                        "Children = S, eat = V, apples = O.",
-                      ],
-                    },
-
-                    {
-                      id: "word-order-exam1-q2",
-
-                      question: ["Câu nào đúng?", "Which sentence is correct?"],
-
-                      options: [
-                        "She books reads.",
-                        "Reads she books.",
-                        "She reads books.",
-                        "Books she reads.",
-                      ],
-
-                      answer: 2,
-
-                      explanation: [
-                        "Cấu trúc đúng là S + V + O.",
-                        "The correct structure is S + V + O.",
-                      ],
-                    },
-                  ],
-                },
-
-                {
-                  id: "word-order-exam-2",
-
-                  name: ["Đề 2", "Exam 2"],
-
-                  quizzes: [
-                    {
-                      id: "word-order-exam2-q1",
-
-                      question: ["Câu nào đúng?", "Which sentence is correct?"],
-
-                      options: [
-                        "Tom football plays.",
-                        "Tom plays football.",
-                        "Football Tom plays.",
-                        "Plays Tom football.",
-                      ],
-
-                      answer: 1,
-
-                      explanation: [
-                        "Tom + plays + football.",
-                        "Tom + plays + football.",
-                      ],
-                    },
-
-                    {
-                      id: "word-order-exam2-q2",
-
-                      question: [
-                        "Trong 'Tom plays football', đâu là Object?",
-                        "In 'Tom plays football', which word is the Object?",
-                      ],
-
-                      options: ["Tom", "plays", "football", "Không có"],
-
-                      answer: 2,
-
-                      explanation: [
-                        "'football' là Object.",
-                        "'football' is the Object.",
-                      ],
-                    },
-                  ],
-                },
-
-                {
-                  id: "word-order-exam-3",
-
-                  name: ["Đề 3", "Exam 3"],
-
-                  quizzes: [
-                    {
-                      id: "word-order-exam3-q1",
-
-                      question: [
-                        "Chọn câu có thứ tự từ đúng.",
-                        "Choose the sentence with the correct word order.",
-                      ],
-
-                      options: [
-                        "I English speak.",
-                        "English I speak.",
-                        "I speak English.",
-                        "Speak I English.",
-                      ],
-
-                      answer: 2,
-
-                      explanation: [
-                        "I + speak + English.",
-                        "I + speak + English.",
-                      ],
-                    },
-                  ],
-                },
-              ],
-
+              name: ["5. THỨ TỰ TỪ", "5. WORD ORDER"],
+              theory: [],
+              exams: [],
+              children: [],
+            },
+            {
+              id: "agreement",
+              name: ["6. SỰ HÒA HỢP", "6. AGREEMENT"],
+              theory: [],
+              exams: [],
+              children: [],
+            },
+            {
+              id: "usage-pragmatics",
+              name: ["7. NGỮ DỤNG", "7. USAGE / PRAGMATICS"],
+              theory: [],
+              exams: [],
               children: [],
             },
           ],
@@ -1670,26 +826,26 @@ Subject + Verb + Object.`,
       ];
 
       /* =============================================================
-         STATE
-      ============================================================= */
+           STATE
+        ============================================================= */
 
       let activeNodeId = null;
       let activeExamId = null;
 
       /* =============================================================
-         GET TEXT
-      ============================================================= */
+           GET TEXT
+        ============================================================= */
 
       function getText(value) {
         /*
-          Nếu là array:
+            Nếu là array:
 
-          VI -> value[0]
-          EN -> value[1]
+            VI -> value[0]
+            EN -> value[1]
 
-          Nếu data cũ vẫn là string,
-          function vẫn hỗ trợ.
-        */
+            Nếu data cũ vẫn là string,
+            function vẫn hỗ trợ.
+          */
 
         if (Array.isArray(value)) {
           const index = languageIndex[currentLanguage];
@@ -1701,8 +857,8 @@ Subject + Verb + Object.`,
       }
 
       /* =============================================================
-         LANGUAGE
-      ============================================================= */
+           LANGUAGE
+        ============================================================= */
 
       function renderStaticUI() {
         document.getElementById("sidebarHeader").textContent = t("header");
@@ -1724,9 +880,9 @@ Subject + Verb + Object.`,
         renderTree();
 
         /*
-          Nếu đang mở category,
-          render lại nội dung hiện tại.
-        */
+            Nếu đang mở category,
+            render lại nội dung hiện tại.
+          */
 
         if (activeNodeId) {
           const node = findNodeById(grammarData, activeNodeId);
@@ -1750,8 +906,8 @@ Subject + Verb + Object.`,
       }
 
       /* =============================================================
-         UI TEXT
-      ============================================================= */
+           UI TEXT
+        ============================================================= */
 
       const uiText = {
         vi: {
@@ -1838,8 +994,8 @@ Subject + Verb + Object.`,
       }
 
       /* =============================================================
-         FIND NODE
-      ============================================================= */
+           FIND NODE
+        ============================================================= */
 
       function findNodeById(nodes, id) {
         for (const node of nodes) {
@@ -1860,8 +1016,8 @@ Subject + Verb + Object.`,
       }
 
       /* =============================================================
-         FIND NODE PATH
-      ============================================================= */
+           FIND NODE PATH
+        ============================================================= */
 
       function findNodePath(nodes, id, path = []) {
         for (const node of nodes) {
@@ -1884,8 +1040,8 @@ Subject + Verb + Object.`,
       }
 
       /* =============================================================
-         FIND QUIZ
-      ============================================================= */
+           FIND QUIZ
+        ============================================================= */
 
       function findQuizById(nodes, quizId) {
         for (const node of nodes) {
@@ -1916,8 +1072,8 @@ Subject + Verb + Object.`,
       }
 
       /* =============================================================
-         RENDER TREE
-      ============================================================= */
+           RENDER TREE
+        ============================================================= */
 
       function renderTree() {
         const treeRoot = document.getElementById("treeRoot");
@@ -1931,10 +1087,10 @@ Subject + Verb + Object.`,
         }
 
         return `
-          <ul>
-            ${nodes.map((node) => renderNode(node)).join("")}
-          </ul>
-        `;
+            <ul>
+              ${nodes.map((node) => renderNode(node)).join("")}
+            </ul>
+          `;
       }
 
       function renderNode(node) {
@@ -1942,62 +1098,62 @@ Subject + Verb + Object.`,
           Array.isArray(node.children) && node.children.length > 0;
 
         return `
-          <li
-            class="tree-node"
-            data-node-id="${node.id}"
-          >
+            <li
+              class="tree-node"
+              data-node-id="${node.id}"
+            >
 
-            <div class="node-content">
+              <div class="node-content">
+
+                ${
+                  hasChildren
+                    ? `
+                      <button
+                        class="expand-btn"
+                        onclick="toggleNode(event, '${node.id}')"
+                      >
+                        <span class="expand-icon">
+                          ▶
+                        </span>
+                      </button>
+                    `
+                    : `
+                      <button
+                        class="expand-btn no-children"
+                        disabled
+                      ></button>
+                    `
+                }
+
+                <div
+                  class="category-title ${
+                    node.id === activeNodeId ? "active" : ""
+                  }"
+                  data-node-id="${node.id}"
+                  onclick="selectNode('${node.id}')"
+                >
+                  ${escapeHtml(getText(node.name))}
+                </div>
+
+              </div>
 
               ${
                 hasChildren
                   ? `
-                    <button
-                      class="expand-btn"
-                      onclick="toggleNode(event, '${node.id}')"
-                    >
-                      <span class="expand-icon">
-                        ▶
-                      </span>
-                    </button>
+                    <div class="children-list">
+                      ${renderNodeList(node.children)}
+                    </div>
                   `
-                  : `
-                    <button
-                      class="expand-btn no-children"
-                      disabled
-                    ></button>
-                  `
+                  : ""
               }
 
-              <div
-                class="category-title ${
-                  node.id === activeNodeId ? "active" : ""
-                }"
-                data-node-id="${node.id}"
-                onclick="selectNode('${node.id}')"
-              >
-                ${escapeHtml(getText(node.name))}
-              </div>
-
-            </div>
-
-            ${
-              hasChildren
-                ? `
-                  <div class="children-list">
-                    ${renderNodeList(node.children)}
-                  </div>
-                `
-                : ""
-            }
-
-          </li>
-        `;
+            </li>
+          `;
       }
 
       /* =============================================================
-         TOGGLE NODE
-      ============================================================= */
+           TOGGLE NODE
+        ============================================================= */
 
       function toggleNode(event, nodeId) {
         event.stopPropagation();
@@ -2012,8 +1168,8 @@ Subject + Verb + Object.`,
       }
 
       /* =============================================================
-         SELECT CATEGORY
-      ============================================================= */
+           SELECT CATEGORY
+        ============================================================= */
 
       function selectNode(nodeId) {
         const node = findNodeById(grammarData, nodeId);
@@ -2050,30 +1206,30 @@ Subject + Verb + Object.`,
       }
 
       /* =============================================================
-         RENDER WELCOME
-      ============================================================= */
+           RENDER WELCOME
+        ============================================================= */
 
       function renderWelcome() {
         const mainContent = document.getElementById("mainContent");
 
         mainContent.innerHTML = `
-          <div class="card">
+            <div class="card">
 
-            <h1>
-              ${escapeHtml(t("welcomeTitle"))}
-            </h1>
+              <h1>
+                ${escapeHtml(t("welcomeTitle"))}
+              </h1>
 
-            <p class="description">
-              ${escapeHtml(t("welcomeDescription"))}
-            </p>
+              <p class="description">
+                ${escapeHtml(t("welcomeDescription"))}
+              </p>
 
-          </div>
-        `;
+            </div>
+          `;
       }
 
       /* =============================================================
-         RENDER CATEGORY
-      ============================================================= */
+           RENDER CATEGORY
+        ============================================================= */
 
       function renderNodeContent(node) {
         const mainContent = document.getElementById("mainContent");
@@ -2095,129 +1251,129 @@ Subject + Verb + Object.`,
         }
 
         mainContent.innerHTML = `
-          <div class="card">
+            <div class="card">
 
-            <div class="breadcrumb">
-              ${breadcrumb}
-            </div>
-
-            <div class="theory-title">
-
-              <h1>
-                ${escapeHtml(getText(node.name))}
-              </h1>
-
-              <span class="theory-badge">
-                ${t("theory")}
-              </span>
-
-            </div>
-
-            ${
-              node.theory
-                ? `
-                  <div class="theory-content">
-                    ${escapeHtml(getText(node.theory))}
-                  </div>
-                `
-                : `
-                  <div class="empty-state">
-                    ${t("noTheory")}
-                  </div>
-                `
-            }
-
-          </div>
-
-          <div class="card quiz-section">
-
-            <div class="quiz-header">
-
-              <div class="exam-title">
-                ${t("examPractice")}
+              <div class="breadcrumb">
+                ${breadcrumb}
               </div>
 
-              <div class="quiz-count">
-                ${exams.length}
-                ${t("examCount")}
+              <div class="theory-title">
+
+                <h1>
+                  ${escapeHtml(getText(node.name))}
+                </h1>
+
+                <span class="theory-badge">
+                  ${t("theory")}
+                </span>
+
               </div>
+
+              ${
+                node.theory
+                  ? `
+                    <div class="theory-content">
+                      ${escapeHtml(getText(node.theory))}
+                    </div>
+                  `
+                  : `
+                    <div class="empty-state">
+                      ${t("noTheory")}
+                    </div>
+                  `
+              }
 
             </div>
 
-            ${renderExamSelector(exams)}
+            <div class="card quiz-section">
 
-            ${renderActiveExam(exams)}
+              <div class="quiz-header">
 
-          </div>
-        `;
+                <div class="exam-title">
+                  ${t("examPractice")}
+                </div>
+
+                <div class="quiz-count">
+                  ${exams.length}
+                  ${t("examCount")}
+                </div>
+
+              </div>
+
+              ${renderExamSelector(exams)}
+
+              ${renderActiveExam(exams)}
+
+            </div>
+          `;
       }
 
       /* =============================================================
-         EXAM SELECTOR
-      ============================================================= */
+           EXAM SELECTOR
+        ============================================================= */
 
       function renderExamSelector(exams) {
         if (!Array.isArray(exams) || exams.length === 0) {
           return `
-            <div class="empty-state">
-              ${t("noExam")}
-            </div>
-          `;
+              <div class="empty-state">
+                ${t("noExam")}
+              </div>
+            `;
         }
 
         const activeIndex = exams.findIndex((exam) => exam.id === activeExamId);
 
         return `
-          <div class="exam-selector">
+            <div class="exam-selector">
 
-            <button
-              class="exam-nav-btn"
-              onclick="changeExam(-1)"
-              ${activeIndex <= 0 ? "disabled" : ""}
-            >
-              ${t("previousExam")}
-            </button>
+              <button
+                class="exam-nav-btn"
+                onclick="changeExam(-1)"
+                ${activeIndex <= 0 ? "disabled" : ""}
+              >
+                ${t("previousExam")}
+              </button>
 
-            <div class="exam-list">
+              <div class="exam-list">
 
-              ${exams
-                .map(
-                  (exam, index) => `
-                    <button
-                      class="
-                        exam-tab
-                        ${exam.id === activeExamId ? "active" : ""}
-                      "
-                      onclick="selectExam('${exam.id}')"
-                    >
-                      ${escapeHtml(
-                        getText(exam.name) ||
-                          `${currentLanguage === "vi" ? "Đề" : "Exam"} ${
-                            index + 1
-                          }`,
-                      )}
-                    </button>
-                  `,
-                )
-                .join("")}
+                ${exams
+                  .map(
+                    (exam, index) => `
+                      <button
+                        class="
+                          exam-tab
+                          ${exam.id === activeExamId ? "active" : ""}
+                        "
+                        onclick="selectExam('${exam.id}')"
+                      >
+                        ${escapeHtml(
+                          getText(exam.name) ||
+                            `${currentLanguage === "vi" ? "Đề" : "Exam"} ${
+                              index + 1
+                            }`,
+                        )}
+                      </button>
+                    `,
+                  )
+                  .join("")}
+
+              </div>
+
+              <button
+                class="exam-nav-btn"
+                onclick="changeExam(1)"
+                ${activeIndex >= exams.length - 1 ? "disabled" : ""}
+              >
+                ${t("nextExam")}
+              </button>
 
             </div>
-
-            <button
-              class="exam-nav-btn"
-              onclick="changeExam(1)"
-              ${activeIndex >= exams.length - 1 ? "disabled" : ""}
-            >
-              ${t("nextExam")}
-            </button>
-
-          </div>
-        `;
+          `;
       }
 
       /* =============================================================
-         ACTIVE EXAM
-      ============================================================= */
+           ACTIVE EXAM
+        ============================================================= */
 
       function renderActiveExam(exams) {
         if (!Array.isArray(exams) || exams.length === 0) {
@@ -2233,26 +1389,26 @@ Subject + Verb + Object.`,
         const quizzes = Array.isArray(exam.quizzes) ? exam.quizzes : [];
 
         return `
-          <div class="quiz-header">
+            <div class="quiz-header">
 
-            <div class="quiz-title">
-              ${escapeHtml(getText(exam.name))}
+              <div class="quiz-title">
+                ${escapeHtml(getText(exam.name))}
+              </div>
+
+              <div class="quiz-count">
+                ${quizzes.length}
+                ${t("questionCount")}
+              </div>
+
             </div>
 
-            <div class="quiz-count">
-              ${quizzes.length}
-              ${t("questionCount")}
-            </div>
-
-          </div>
-
-          ${renderQuizzes(quizzes)}
-        `;
+            ${renderQuizzes(quizzes)}
+          `;
       }
 
       /* =============================================================
-         SELECT EXAM
-      ============================================================= */
+           SELECT EXAM
+        ============================================================= */
 
       function selectExam(examId) {
         const node = findNodeById(grammarData, activeNodeId);
@@ -2275,8 +1431,8 @@ Subject + Verb + Object.`,
       }
 
       /* =============================================================
-         NEXT / PREVIOUS EXAM
-      ============================================================= */
+           NEXT / PREVIOUS EXAM
+        ============================================================= */
 
       function changeExam(direction) {
         const node = findNodeById(grammarData, activeNodeId);
@@ -2313,8 +1469,8 @@ Subject + Verb + Object.`,
       }
 
       /* =============================================================
-         SCROLL ACTIVE EXAM
-      ============================================================= */
+           SCROLL ACTIVE EXAM
+        ============================================================= */
 
       function scrollActiveExam() {
         requestAnimationFrame(() => {
@@ -2331,82 +1487,82 @@ Subject + Verb + Object.`,
       }
 
       /* =============================================================
-         RENDER QUIZZES
-      ============================================================= */
+           RENDER QUIZZES
+        ============================================================= */
 
       function renderQuizzes(quizzes) {
         if (!Array.isArray(quizzes) || quizzes.length === 0) {
           return `
-            <div class="empty-state">
-              ${t("noQuestion")}
-            </div>
-          `;
+              <div class="empty-state">
+                ${t("noQuestion")}
+              </div>
+            `;
         }
 
         return quizzes
           .map(
             (quiz, index) => `
-              <div
-                class="question-box"
-                id="quiz-${escapeHtml(quiz.id)}"
-              >
+                <div
+                  class="question-box"
+                  id="quiz-${escapeHtml(quiz.id)}"
+                >
 
-                <div class="question-number">
-                  ${t("question")}
-                  ${index + 1}
-                </div>
+                  <div class="question-number">
+                    ${t("question")}
+                    ${index + 1}
+                  </div>
 
-                <div class="question-title">
-                  ${escapeHtml(getText(quiz.question))}
-                </div>
+                  <div class="question-title">
+                    ${escapeHtml(getText(quiz.question))}
+                  </div>
 
-                <div class="options-list">
+                  <div class="options-list">
 
-                  ${quiz.options
-                    .map(
-                      (option, optionIndex) => `
-                        <label
-                          class="option-label"
-                        >
-
-                          <input
-                            type="radio"
-                            name="quiz-${quiz.id}"
-                            value="${optionIndex}"
+                    ${quiz.options
+                      .map(
+                        (option, optionIndex) => `
+                          <label
+                            class="option-label"
                           >
 
-                          <span>
-                            ${escapeHtml(option)}
-                          </span>
+                            <input
+                              type="radio"
+                              name="quiz-${quiz.id}"
+                              value="${optionIndex}"
+                            >
 
-                        </label>
-                      `,
-                    )
-                    .join("")}
+                            <span>
+                              ${escapeHtml(option)}
+                            </span>
+
+                          </label>
+                        `,
+                      )
+                      .join("")}
+
+                  </div>
+
+                  <button
+                    class="submit-btn"
+                    onclick="checkAnswer('${quiz.id}')"
+                  >
+                    ${t("check")}
+                  </button>
+
+                  <div
+                    class="result-msg"
+                    id="result-${quiz.id}"
+                  ></div>
 
                 </div>
-
-                <button
-                  class="submit-btn"
-                  onclick="checkAnswer('${quiz.id}')"
-                >
-                  ${t("check")}
-                </button>
-
-                <div
-                  class="result-msg"
-                  id="result-${quiz.id}"
-                ></div>
-
-              </div>
-            `,
+              `,
           )
           .join("");
       }
 
       /* =============================================================
-         CHECK ANSWER
-      ============================================================= */
+           CHECK ANSWER
+        ============================================================= */
 
       function checkAnswer(quizId) {
         const quiz = findQuizById(grammarData, quizId);
@@ -2425,10 +1581,10 @@ Subject + Verb + Object.`,
 
         if (!selected) {
           resultMsg.innerHTML = `
-            <span class="incorrect">
-              ${t("chooseAnswer")}
-            </span>
-          `;
+              <span class="incorrect">
+                ${t("chooseAnswer")}
+              </span>
+            `;
 
           return;
         }
@@ -2437,46 +1593,46 @@ Subject + Verb + Object.`,
 
         if (userChoice === quiz.answer) {
           resultMsg.innerHTML = `
-            <span class="correct">
-              ${t("correct")}
-            </span>
+              <span class="correct">
+                ${t("correct")}
+              </span>
 
-            <br>
+              <br>
 
-            <span
-              style="
-                font-weight: normal;
-                color: #475569;
-              "
-            >
-              ${t("explanation")}
-              ${escapeHtml(getText(quiz.explanation))}
-            </span>
-          `;
+              <span
+                style="
+                  font-weight: normal;
+                  color: #475569;
+                "
+              >
+                ${t("explanation")}
+                ${escapeHtml(getText(quiz.explanation))}
+              </span>
+            `;
         } else {
           resultMsg.innerHTML = `
-            <span class="incorrect">
-              ${t("incorrect")}
-            </span>
+              <span class="incorrect">
+                ${t("incorrect")}
+              </span>
 
-            <br>
+              <br>
 
-            <span
-              style="
-                font-weight: normal;
-                color: #475569;
-              "
-            >
-              ${t("explanation")}
-              ${escapeHtml(getText(quiz.explanation))}
-            </span>
-          `;
+              <span
+                style="
+                  font-weight: normal;
+                  color: #475569;
+                "
+              >
+                ${t("explanation")}
+                ${escapeHtml(getText(quiz.explanation))}
+              </span>
+            `;
         }
       }
 
       /* =============================================================
-         ESCAPE HTML
-      ============================================================= */
+           ESCAPE HTML
+        ============================================================= */
 
       function escapeHtml(value) {
         if (value === undefined || value === null) {
@@ -2492,8 +1648,8 @@ Subject + Verb + Object.`,
       }
 
       /* =============================================================
-         INIT
-      ============================================================= */
+           INIT
+        ============================================================= */
 
       renderStaticUI();
 
