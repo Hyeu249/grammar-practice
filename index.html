@@ -1804,6 +1804,22 @@
         renderNodeContent(node);
       }
 
+      // HÀM MỚI: Xử lý khi click vào Breadcrumb
+      function handleBreadcrumbClick(nodeId) {
+        // 1. Chuyển đổi giao diện sang node đó
+        selectNode(nodeId);
+
+        // 2. Tìm thẻ li chứa node này trên sidebar
+        const parentNode = document.querySelector(
+          `.tree-node[data-node-id="${nodeId}"]`,
+        );
+        if (parentNode) {
+          // 3. Tìm tất cả các node con/cháu bên trong và đóng chúng lại (xóa class 'open')
+          const childNodes = parentNode.querySelectorAll(".tree-node");
+          childNodes.forEach((child) => child.classList.remove("open"));
+        }
+      }
+
       function renderWelcome() {
         const mainContent = document.getElementById("mainContent");
         mainContent.innerHTML = `
@@ -1818,7 +1834,8 @@
         const mainContent = document.getElementById("mainContent");
 
         // -------------------------------------------------------------
-        // TẠO BREADCRUMB CÓ THỂ CLICK ĐƯỢC
+        // TẠO BREADCRUMB
+        // Thay vì gọi selectNode, ta gọi handleBreadcrumbClick
         // -------------------------------------------------------------
         const path = findNodePath(grammarData, node.id) || [];
         const breadcrumbHtml = path
@@ -1827,11 +1844,11 @@
             const className = isLast
               ? "breadcrumb-item active"
               : "breadcrumb-item";
-            // Nếu là phần tử cuối, không cho phép click (do đang ở ngay đó).
-            // Nếu không, gắn sự kiện onclick để chuyển trang.
+
+            // Dùng handleBreadcrumbClick để vừa chuyển trang, vừa đóng thư mục con
             const clickAction = isLast
               ? ""
-              : `onclick="selectNode('${item.id}')"`;
+              : `onclick="handleBreadcrumbClick('${item.id}')"`;
 
             return `<span class="${className}" ${clickAction}>${escapeHtml(getText(item.name))}</span>`;
           })
