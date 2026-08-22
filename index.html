@@ -1742,21 +1742,15 @@
           const treeNode = document.querySelector(
             `.tree-node[data-node-id="${nodeId}"]`,
           );
-          if (treeNode) treeNode.classList.add("open");
+          if (treeNode) {
+            treeNode.classList.add("open");
+
+            const childNodes = treeNode.querySelectorAll(".tree-node");
+            childNodes.forEach((child) => child.classList.remove("open"));
+          }
         }
 
         renderNodeContent(node);
-      }
-
-      function handleBreadcrumbClick(nodeId) {
-        selectNode(nodeId);
-        const parentNode = document.querySelector(
-          `.tree-node[data-node-id="${nodeId}"]`,
-        );
-        if (parentNode) {
-          const childNodes = parentNode.querySelectorAll(".tree-node");
-          childNodes.forEach((child) => child.classList.remove("open"));
-        }
       }
 
       function renderWelcome() {
@@ -1780,7 +1774,7 @@
               : "breadcrumb-item";
             const clickAction = isLast
               ? ""
-              : `onclick="handleBreadcrumbClick('${item.id}')"`;
+              : `onclick="selectNode('${item.id}')"`;
             return `<span class="${className}" ${clickAction}>${escapeHtml(getText(item.name))}</span>`;
           })
           .join('<span class="breadcrumb-separator"> ❯ </span>');
