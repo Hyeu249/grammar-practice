@@ -274,20 +274,41 @@
         font-size: 1.05rem;
       }
 
+      /* BREADCRUMB CSS MỚI - CLICKABLE */
       .breadcrumb {
-        display: inline-block;
+        display: inline-flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px;
         background: #f1f5f9;
-        padding: 6px 16px;
+        padding: 8px 18px;
         border-radius: 20px;
-        color: var(--muted-color);
         font-size: 0.9rem;
-        font-weight: 500;
         margin-bottom: 20px;
       }
 
-      .breadcrumb span {
-        color: var(--accent-color);
+      .breadcrumb-item {
+        color: var(--primary-dark);
         font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .breadcrumb-item:hover {
+        color: var(--accent-color);
+        text-decoration: underline;
+      }
+
+      .breadcrumb-item.active {
+        color: var(--accent-color);
+        cursor: default;
+        text-decoration: none;
+      }
+
+      .breadcrumb-separator {
+        color: var(--muted-color);
+        font-size: 0.8rem;
+        user-select: none;
       }
 
       /* =========================================================
@@ -669,8 +690,6 @@
       let currentLanguage = "vi";
       const languageIndex = { vi: 0, en: 1 };
 
-      // [DỮ LIỆU GIỮ NGUYÊN NHƯ CŨ, ĐỂ TIẾT KIỆM KHÔNG GIAN TÔI THU GỌN VÀI ĐOẠN,
-      // NHƯNG CẤU TRÚC VẪN FULL NHƯ BẠN CUNG CẤP]
       const grammarData = [
         {
           id: "english",
@@ -908,7 +927,6 @@
                                   ],
                                 },
                               ],
-                              children: [],
                             },
                             {
                               id: "present-simple",
@@ -1572,27 +1590,6 @@
                 },
               ],
             },
-            // {
-            //   id: "word-order",
-            //   name: ["5. WORD ORDER — THỨ TỰ TỪ", "5. WORD ORDER"],
-            //   theory: [],
-            //   exams: [],
-            //   children: [],
-            // },
-            // {
-            //   id: "agreement",
-            //   name: ["6. AGREEMENT — SỰ HÒA HỢP", "6. AGREEMENT"],
-            //   theory: [],
-            //   exams: [],
-            //   children: [],
-            // },
-            // {
-            //   id: "usage-pragmatics",
-            //   name: ["7. USAGE / PRAGMATICS — NGỮ DỤNG", "7. USAGE / PRAGMATICS"],
-            //   theory: [],
-            //   exams: [],
-            //   children: [],
-            // },
           ],
         },
       ];
@@ -1754,7 +1751,9 @@
                 <button class="expand-btn no-children" disabled>•</button>
               `
               }
-              <div class="category-title ${node.id === activeNodeId ? "active" : ""}" 
+              <div class="category-title ${
+                node.id === activeNodeId ? "active" : ""
+              }" 
                    data-node-id="${node.id}" onclick="selectNode('${node.id}')">
                 ${escapeHtml(getText(node.name))}
               </div>
@@ -1817,10 +1816,27 @@
 
       function renderNodeContent(node) {
         const mainContent = document.getElementById("mainContent");
+
+        // -------------------------------------------------------------
+        // TẠO BREADCRUMB CÓ THỂ CLICK ĐƯỢC
+        // -------------------------------------------------------------
         const path = findNodePath(grammarData, node.id) || [];
-        const breadcrumb = path
-          .map((item) => `<span>${escapeHtml(getText(item.name))}</span>`)
-          .join(" ❯ ");
+        const breadcrumbHtml = path
+          .map((item, index) => {
+            const isLast = index === path.length - 1;
+            const className = isLast
+              ? "breadcrumb-item active"
+              : "breadcrumb-item";
+            // Nếu là phần tử cuối, không cho phép click (do đang ở ngay đó).
+            // Nếu không, gắn sự kiện onclick để chuyển trang.
+            const clickAction = isLast
+              ? ""
+              : `onclick="selectNode('${item.id}')"`;
+
+            return `<span class="${className}" ${clickAction}>${escapeHtml(getText(item.name))}</span>`;
+          })
+          .join('<span class="breadcrumb-separator"> ❯ </span>');
+
         const exams = Array.isArray(node.exams) ? node.exams : [];
 
         if (exams.length > 0) {
@@ -1833,7 +1849,7 @@
 
         mainContent.innerHTML = `
           <div class="card">
-            <div class="breadcrumb">📍 ${breadcrumb}</div>
+            <div class="breadcrumb">📍 ${breadcrumbHtml}</div>
             <div class="theory-title">
               <h1>${escapeHtml(getText(node.name))}</h1>
               <span class="theory-badge">📚 ${t("theory")}</span>
