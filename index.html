@@ -2635,6 +2635,12 @@
         if (activeNodeId) {
           const node = findNodeById(grammarData, activeNodeId);
           if (node) renderNodeContent(node);
+
+          const path = findNodePath(grammarData, node.id) || [];
+
+          path.forEach((currentNode) => {
+            selectNode(currentNode.id);
+          });
         } else {
           renderWelcome();
         }
