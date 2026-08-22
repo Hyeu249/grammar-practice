@@ -2646,11 +2646,7 @@
           const node = findNodeById(grammarData, activeNodeId);
           if (node) renderNodeContent(node);
 
-          const path = findNodePath(grammarData, node.id) || [];
-
-          path.forEach((currentNode) => {
-            selectNode(currentNode.id);
-          });
+          selectNode(activeNodeId);
         } else {
           renderWelcome();
         }
@@ -2801,15 +2797,28 @@
       }
 
       function selectNode(nodeId) {
+        document
+          .querySelectorAll(".category-title")
+          .forEach((el) => el.classList.remove("active"));
+
+        document
+          .querySelectorAll(".tree-node")
+          .forEach((el) => el.classList.remove("open"));
+
+        const path = findNodePath(grammarData, nodeId) || [];
+
+        path.forEach((currentNode) => {
+          activeNode(currentNode.id);
+        });
+      }
+
+      function activeNode(nodeId) {
         const node = findNodeById(grammarData, nodeId);
         if (!node) return;
 
         activeNodeId = nodeId;
         activeExamId = null;
 
-        document
-          .querySelectorAll(".category-title")
-          .forEach((el) => el.classList.remove("active"));
         const activeElement = document.querySelector(
           `.category-title[data-node-id="${nodeId}"]`,
         );
@@ -2819,12 +2828,7 @@
           const treeNode = document.querySelector(
             `.tree-node[data-node-id="${nodeId}"]`,
           );
-          if (treeNode) {
-            treeNode.classList.add("open");
-
-            const childNodes = treeNode.querySelectorAll(".tree-node");
-            childNodes.forEach((child) => child.classList.remove("open"));
-          }
+          if (treeNode) treeNode.classList.add("open");
         }
 
         renderNodeContent(node);
