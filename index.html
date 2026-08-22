@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cây Ngữ Pháp Tiếng Anh - Premium EdTech UI</title>
+    <title>Cây Ngữ Pháp Luyện tập - Premium GRAMMAR PRACTICE UI</title>
 
     <!-- Import Google Font -->
     <link
@@ -284,7 +284,7 @@
       }
 
       .sidebar-header::after {
-        content: "GRAMMAR ACADEMY";
+        content: attr(data-text);
 
         display: block;
 
@@ -1726,7 +1726,13 @@
   <body>
     <!-- SIDEBAR -->
     <aside class="sidebar">
-      <div class="sidebar-header" id="sidebarHeader">NGỮ PHÁP TIẾNG ANH</div>
+      <div
+        class="sidebar-header"
+        data-text="GRAMMAR PRACTICE"
+        id="sidebarHeader"
+      >
+        NGỮ PHÁP LUYỆN TẬP
+      </div>
       <div class="language-switcher">
         <div class="language-switch">
           <button
@@ -2620,7 +2626,11 @@
       }
 
       function renderStaticUI() {
-        document.getElementById("sidebarHeader").textContent = t("header");
+        const sidebarHeader = document.getElementById("sidebarHeader");
+        // Khi chuyển sang tiếng Việt
+
+        sidebarHeader.textContent = t("header");
+        sidebarHeader.setAttribute("data-text", t("header_pseudo"));
       }
 
       function setLanguage(language) {
@@ -2657,7 +2667,8 @@
 
       const uiText = {
         vi: {
-          header: "NGỮ PHÁP TIẾNG ANH",
+          header: "NGỮ PHÁP LUYỆN TẬP",
+          header_pseudo: "GRAMMAR PRACTICE",
           welcomeTitle: "Chào mừng bạn đến với hệ thống học Ngữ pháp! 🎓",
           welcomeDescription:
             "Hãy chọn một chủ đề ở menu bên trái để học lý thuyết và làm bài tập nhé.",
@@ -2679,8 +2690,10 @@
           incorrect: "Sai rồi. Hãy xem lại giải thích và thử lại nhé! 💪",
           explanation: "Giải thích chi tiết:",
         },
+
         en: {
-          header: "ENGLISH GRAMMAR",
+          header: "GRAMMAR PRACTICE",
+          header_pseudo: "NGỮ PHÁP LUYỆN TẬP",
           welcomeTitle: "Welcome to Grammar Master! 🎓",
           welcomeDescription:
             "Select a topic from the left menu to explore theory and practice.",
@@ -2762,21 +2775,21 @@
         const hasChildren =
           Array.isArray(node.children) && node.children.length > 0;
         return `
-        <li class="tree-node" data-node-id="${node.id}">
-          <div class="node-content">
-            ${
-              hasChildren
-                ? `<button class="expand-btn" onclick="toggleNode(event, '${node.id}')"><span class="expand-icon">❯</span></button>`
-                : `<button class="expand-btn no-children" disabled>•</button>`
-            }
-            <div class="category-title ${node.id === activeNodeId ? "active" : ""}" 
-                 data-node-id="${node.id}" onclick="selectNode('${node.id}')">
-              ${escapeHtml(getText(node.name))}
-            </div>
-          </div>
-          ${hasChildren ? `<div class="children-list">${renderNodeList(node.children)}</div>` : ""}
-        </li>
-      `;
+              <li class="tree-node" data-node-id="${node.id}">
+                <div class="node-content">
+                  ${
+                    hasChildren
+                      ? `<button class="expand-btn" onclick="toggleNode(event, '${node.id}')"><span class="expand-icon">❯</span></button>`
+                      : `<button class="expand-btn no-children" disabled>•</button>`
+                  }
+                  <div class="category-title ${node.id === activeNodeId ? "active" : ""}"
+                       data-node-id="${node.id}" onclick="selectNode('${node.id}')">
+                    ${escapeHtml(getText(node.name))}
+                  </div>
+                </div>
+                ${hasChildren ? `<div class="children-list">${renderNodeList(node.children)}</div>` : ""}
+              </li>
+            `;
       }
 
       function toggleNode(event, nodeId) {
@@ -2820,11 +2833,11 @@
       function renderWelcome() {
         const mainContent = document.getElementById("mainContent");
         mainContent.innerHTML = `
-        <div class="card">
-          <h1>${escapeHtml(t("welcomeTitle"))}</h1>
-          <p class="description">${escapeHtml(t("welcomeDescription"))}</p>
-        </div>
-      `;
+              <div class="card">
+                <h1>${escapeHtml(t("welcomeTitle"))}</h1>
+                <p class="description">${escapeHtml(t("welcomeDescription"))}</p>
+              </div>
+            `;
       }
 
       function renderNodeContent(node) {
@@ -2853,28 +2866,28 @@
         }
 
         mainContent.innerHTML = `
-        <div class="card">
-          <div class="breadcrumb">📍 ${breadcrumbHtml}</div>
-          <div class="theory-title">
-            <h1>${escapeHtml(getText(node.name))}</h1>
-            <span class="theory-badge">📚 ${t("theory")}</span>
-          </div>
-          ${
-            node.theory && node.theory.length > 0
-              ? `<div class="theory-content">${escapeHtml(getText(node.theory))}</div>`
-              : `<div class="empty-state">${t("noTheory")}</div>`
-          }
-        </div>
+              <div class="card">
+                <div class="breadcrumb">📍 ${breadcrumbHtml}</div>
+                <div class="theory-title">
+                  <h1>${escapeHtml(getText(node.name))}</h1>
+                  <span class="theory-badge">📚 ${t("theory")}</span>
+                </div>
+                ${
+                  node.theory && node.theory.length > 0
+                    ? `<div class="theory-content">${escapeHtml(getText(node.theory))}</div>`
+                    : `<div class="empty-state">${t("noTheory")}</div>`
+                }
+              </div>
 
-        <div class="card quiz-section">
-          <div class="quiz-header">
-            <div class="quiz-title">${t("examPractice")}</div>
-            <div class="quiz-count">${exams.length} ${t("examCount")}</div>
-          </div>
-          ${renderExamSelector(exams)}
-          ${renderActiveExam(exams)}
-        </div>
-      `;
+              <div class="card quiz-section">
+                <div class="quiz-header">
+                  <div class="quiz-title">${t("examPractice")}</div>
+                  <div class="quiz-count">${exams.length} ${t("examCount")}</div>
+                </div>
+                ${renderExamSelector(exams)}
+                ${renderActiveExam(exams)}
+              </div>
+            `;
       }
 
       function renderExamSelector(exams) {
@@ -2884,27 +2897,27 @@
         const activeIndex = exams.findIndex((exam) => exam.id === activeExamId);
 
         return `
-        <div class="exam-selector">
-          <button class="exam-nav-btn" onclick="changeExam(-1)" ${activeIndex <= 0 ? "disabled" : ""}>
-            ${t("previousExam")}
-          </button>
-          <div class="exam-list">
-            ${exams
-              .map(
-                (exam, index) => `
-              <button class="exam-tab ${exam.id === activeExamId ? "active" : ""}" 
-                      onclick="selectExam('${exam.id}')">
-                ${escapeHtml(getText(exam.name) || `${currentLanguage === "vi" ? "Đề" : "Exam"} ${index + 1}`)}
-              </button>
-            `,
-              )
-              .join("")}
-          </div>
-          <button class="exam-nav-btn" onclick="changeExam(1)" ${activeIndex >= exams.length - 1 ? "disabled" : ""}>
-            ${t("nextExam")}
-          </button>
-        </div>
-      `;
+              <div class="exam-selector">
+                <button class="exam-nav-btn" onclick="changeExam(-1)" ${activeIndex <= 0 ? "disabled" : ""}>
+                  ${t("previousExam")}
+                </button>
+                <div class="exam-list">
+                  ${exams
+                    .map(
+                      (exam, index) => `
+                    <button class="exam-tab ${exam.id === activeExamId ? "active" : ""}"
+                            onclick="selectExam('${exam.id}')">
+                      ${escapeHtml(getText(exam.name) || `${currentLanguage === "vi" ? "Đề" : "Exam"} ${index + 1}`)}
+                    </button>
+                  `,
+                    )
+                    .join("")}
+                </div>
+                <button class="exam-nav-btn" onclick="changeExam(1)" ${activeIndex >= exams.length - 1 ? "disabled" : ""}>
+                  ${t("nextExam")}
+                </button>
+              </div>
+            `;
       }
 
       function renderActiveExam(exams) {
@@ -2914,16 +2927,16 @@
         const quizzes = Array.isArray(exam.quizzes) ? exam.quizzes : [];
 
         return `
-<div class="quiz-header exam-active-header">
-  <div class="quiz-title exam-active-title">
-    📝 ${escapeHtml(getText(exam.name))}
-  </div>
-  <div class="quiz-count">
-    ${quizzes.length} ${t("questionCount")}
-  </div>
-</div>
-        ${renderQuizzes(quizzes)}
-      `;
+      <div class="quiz-header exam-active-header">
+        <div class="quiz-title exam-active-title">
+          📝 ${escapeHtml(getText(exam.name))}
+        </div>
+        <div class="quiz-count">
+          ${quizzes.length} ${t("questionCount")}
+        </div>
+      </div>
+              ${renderQuizzes(quizzes)}
+            `;
       }
 
       function selectExam(examId) {
@@ -2981,41 +2994,41 @@
               const isCorrect = state.selected === quiz.answer;
               if (isCorrect) {
                 resultHtml = `
-                    <div class="result-alert correct-box">
-                      <strong>${t("correct")}</strong>
-                      <span class="expl"><strong>${t("explanation")}</strong> ${escapeHtml(getText(quiz.explanation))}</span>
-                    </div>`;
+                          <div class="result-alert correct-box">
+                            <strong>${t("correct")}</strong>
+                            <span class="expl"><strong>${t("explanation")}</strong> ${escapeHtml(getText(quiz.explanation))}</span>
+                          </div>`;
               } else {
                 resultHtml = `
-                    <div class="result-alert incorrect-box">
-                      <strong>${t("incorrect")}</strong>
-                      <span class="expl"><strong>${t("explanation")}</strong> ${escapeHtml(getText(quiz.explanation))}</span>
-                    </div>`;
+                          <div class="result-alert incorrect-box">
+                            <strong>${t("incorrect")}</strong>
+                            <span class="expl"><strong>${t("explanation")}</strong> ${escapeHtml(getText(quiz.explanation))}</span>
+                          </div>`;
               }
             }
 
             return `
-        <div class="question-box" id="quiz-${escapeHtml(quiz.id)}">
-          <div class="question-number">${t("question")} ${index + 1}</div>
-          <div class="question-title">${escapeHtml(getText(quiz.question))}</div>
-          <div class="options-list">
-            ${quiz.options
-              .map(
-                (option, optionIndex) => `
-              <label class="option-label">
-                <input type="radio" name="quiz-${quiz.id}" value="${optionIndex}" 
-                  onchange="saveAnswer('${quiz.id}', ${optionIndex})" 
-                  ${state.selected === optionIndex ? "checked" : ""}>
-                <span>${escapeHtml(option)}</span>
-              </label>
-            `,
-              )
-              .join("")}
-          </div>
-          <button class="submit-btn" onclick="checkAnswer('${quiz.id}')">${t("check")}</button>
-          <div id="result-${quiz.id}">${resultHtml}</div>
-        </div>
-      `;
+              <div class="question-box" id="quiz-${escapeHtml(quiz.id)}">
+                <div class="question-number">${t("question")} ${index + 1}</div>
+                <div class="question-title">${escapeHtml(getText(quiz.question))}</div>
+                <div class="options-list">
+                  ${quiz.options
+                    .map(
+                      (option, optionIndex) => `
+                    <label class="option-label">
+                      <input type="radio" name="quiz-${quiz.id}" value="${optionIndex}"
+                        onchange="saveAnswer('${quiz.id}', ${optionIndex})"
+                        ${state.selected === optionIndex ? "checked" : ""}>
+                      <span>${escapeHtml(option)}</span>
+                    </label>
+                  `,
+                    )
+                    .join("")}
+                </div>
+                <button class="submit-btn" onclick="checkAnswer('${quiz.id}')">${t("check")}</button>
+                <div id="result-${quiz.id}">${resultHtml}</div>
+              </div>
+            `;
           })
           .join("");
 
@@ -3023,11 +3036,11 @@
         return (
           quizzesHtml +
           `
-          <div class="exam-actions">
-            <button class="reset-btn" onclick="resetExamAnswers()">${t("reset")}</button>
-            <button class="submit-btn check-all-btn" onclick="checkAllExamAnswers()">${t("checkAll")}</button>
-          </div>
-        `
+                <div class="exam-actions">
+                  <button class="reset-btn" onclick="resetExamAnswers()">${t("reset")}</button>
+                  <button class="submit-btn check-all-btn" onclick="checkAllExamAnswers()">${t("checkAll")}</button>
+                </div>
+              `
         );
       }
 
@@ -3053,18 +3066,18 @@
 
         if (state.selected === quiz.answer) {
           resultMsg.innerHTML = `
-          <div class="result-alert correct-box">
-            <strong>${t("correct")}</strong>
-            <span class="expl"><strong>${t("explanation")}</strong> ${escapeHtml(getText(quiz.explanation))}</span>
-          </div>
-        `;
+                <div class="result-alert correct-box">
+                  <strong>${t("correct")}</strong>
+                  <span class="expl"><strong>${t("explanation")}</strong> ${escapeHtml(getText(quiz.explanation))}</span>
+                </div>
+              `;
         } else {
           resultMsg.innerHTML = `
-          <div class="result-alert incorrect-box">
-            <strong>${t("incorrect")}</strong>
-            <span class="expl"><strong>${t("explanation")}</strong> ${escapeHtml(getText(quiz.explanation))}</span>
-          </div>
-        `;
+                <div class="result-alert incorrect-box">
+                  <strong>${t("incorrect")}</strong>
+                  <span class="expl"><strong>${t("explanation")}</strong> ${escapeHtml(getText(quiz.explanation))}</span>
+                </div>
+              `;
         }
       }
 
