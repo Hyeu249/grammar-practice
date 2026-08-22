@@ -776,41 +776,99 @@
       /* ================================================================
    THEORY CONTENT
 ================================================================ */
+      /* ================================================================
+   THEORY CONTENT
+================================================================ */
       .theory-content {
         position: relative;
-
         padding: 20px 22px 20px 23px;
-
         background: linear-gradient(135deg, #f8faff, #f6f8fd);
-
         border: 1px solid #e5e9f1;
         border-radius: var(--radius-md);
-
         color: var(--ink-2);
-
         font-size: 13.5px;
-
         line-height: 1.85;
 
-        white-space: pre-line;
+        /* XÓA HOẶC COMMENT DÒNG NÀY LẠI vì nó làm vỡ layout HTML của Markdown */
+        /* white-space: pre-line; */
 
         box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
       }
 
       .theory-content::before {
         content: "";
-
         position: absolute;
-
         left: 0;
         top: 15px;
         bottom: 15px;
-
         width: 4px;
-
         border-radius: 0 5px 5px 0;
-
         background: linear-gradient(to bottom, var(--brand), #6882e8);
+      }
+
+      /* ================================================================
+   BỔ SUNG CSS STYLE DÀNH RIÊNG CHO MARKDOWN BÊN TRONG THEORY
+================================================================ */
+      .theory-content p {
+        margin-bottom: 12px;
+      }
+
+      .theory-content p:last-child {
+        margin-bottom: 0;
+      }
+
+      /* Style cho Bảng (Table) */
+      .theory-content table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 16px 0;
+        background: #ffffff;
+      }
+
+      .theory-content th,
+      .theory-content td {
+        border: 1px solid var(--line);
+        padding: 10px 14px;
+        text-align: left;
+      }
+
+      .theory-content th {
+        background: var(--surface-muted);
+        color: var(--ink);
+        font-weight: 600;
+      }
+
+      .theory-content tr:nth-child(even) {
+        background: #f8faff;
+      }
+
+      /* Style cho Danh sách (Lists) */
+      .theory-content ul,
+      .theory-content ol {
+        margin: 12px 0 12px 24px;
+        padding: 0;
+      }
+
+      .theory-content li {
+        margin-bottom: 6px;
+      }
+
+      /* Style cho Code và Trích dẫn (Blockquote) */
+      .theory-content code {
+        background: rgba(49, 87, 213, 0.1);
+        color: var(--brand-dark);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: monospace;
+        font-size: 0.9em;
+      }
+
+      .theory-content blockquote {
+        border-left: 3px solid var(--brand);
+        margin: 12px 0;
+        padding-left: 14px;
+        color: var(--muted);
+        font-style: italic;
       }
 
       /* ================================================================
@@ -1761,6 +1819,8 @@
       </div>
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
     <script>
       let currentLanguage = "vi";
       const languageIndex = { vi: 0, en: 1 };
@@ -1815,7 +1875,15 @@
                                 "1. Present continuous",
                               ],
                               theory: [
-                                "I am doing something = I started doing it and I haven’t finished; I’m in the middle of doing it. ",
+                                `I am doing something = I started doing it and I haven’t finished; I’m in the middle of doing it. 
+
+| **Chủ ngữ** | **Động từ 'be'** | **Ví dụ** |
+|---|---|---|
+| I | **am** | I am driving. |
+| He / She / It | **is** | She is working. |
+| We / You / They | **are** | They are doing. |
+
+                                `,
                               ],
                               exams: [
                                 {
@@ -2359,7 +2427,7 @@
                       children: [],
                     },
                     {
-                      id: "verb",
+                      id: "verb-predicator",
                       name: ["2. Động từ", "2. Verb / Predicator"],
                       theory: [],
                       exams: [],
@@ -2878,7 +2946,7 @@
                 </div>
                 ${
                   node.theory && node.theory.length > 0
-                    ? `<div class="theory-content">${escapeHtml(getText(node.theory))}</div>`
+                    ? `<div class="theory-content">${marked.parse(getText(node.theory))}</div>`
                     : `<div class="empty-state">${t("noTheory")}</div>`
                 }
               </div>
