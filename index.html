@@ -1167,7 +1167,7 @@
       }
 
       /* ================================================================
-   SUBMIT BUTTON
+   BUTTONS (SUBMIT / RESET / CHECK ALL)
 ================================================================ */
       .submit-btn {
         display: inline-flex;
@@ -1217,6 +1217,43 @@
         transform: translateY(0);
 
         box-shadow: 0 5px 14px rgba(49, 87, 213, 0.2);
+      }
+
+      .exam-actions {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 12px;
+        margin-top: 15px;
+        padding-top: 20px;
+        border-top: 1px solid var(--line);
+      }
+
+      .reset-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 42px;
+        padding: 0 18px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: #ffffff;
+        color: var(--ink-2);
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: var(--shadow-xs);
+        transition: all var(--transition-fast);
+      }
+
+      .reset-btn:hover {
+        background: var(--surface-muted);
+        color: var(--danger);
+        border-color: #e4e7ec;
+      }
+
+      .check-all-btn {
+        margin-top: 0; /* Ghi đè margin-top của submit-btn */
       }
 
       /* ================================================================
@@ -1575,6 +1612,14 @@
         .submit-btn {
           width: 100%;
         }
+
+        .exam-actions {
+          flex-direction: column-reverse;
+        }
+        .exam-actions .reset-btn,
+        .exam-actions .check-all-btn {
+          width: 100%;
+        }
       }
 
       /* ================================================================
@@ -1702,6 +1747,10 @@
     <script>
       let currentLanguage = "vi";
       const languageIndex = { vi: 0, en: 1 };
+
+      // BIẾN LƯU TRẠNG THÁI CÂU TRẢ LỜI CỦA NGƯỜI DÙNG
+      // Cấu trúc: { "quizId": { selected: index, isChecked: boolean } }
+      const userAnswers = {};
 
       // DATA
       const grammarData = [
@@ -2671,7 +2720,9 @@
           noExam: "Chưa có bài tập cho chủ đề này.",
           noQuestion: "Đề này chưa có câu hỏi.",
           question: "Câu",
-          check: "Kiểm tra đáp án 🚀",
+          check: "Kiểm tra đáp án",
+          checkAll: "Kiểm tra tổng 🚀",
+          reset: "🔄 Làm lại",
           chooseAnswer: "⚠️ Bạn chưa chọn đáp án nào, hãy chọn một đáp án nhé!",
           correct: "Chính xác! Tuyệt vời 🎉",
           incorrect: "Sai rồi. Hãy xem lại giải thích và thử lại nhé! 💪",
@@ -2692,7 +2743,9 @@
           noExam: "No exams available for this topic yet.",
           noQuestion: "No questions in this exam.",
           question: "Question",
-          check: "Check Answer 🚀",
+          check: "Check Answer",
+          checkAll: "Check All 🚀",
+          reset: "🔄 Reset",
           chooseAnswer: "⚠️ Please select an answer before checking!",
           correct: "Correct! Awesome 🎉",
           incorrect: "Incorrect. Read the explanation and try again! 💪",
@@ -2946,14 +2999,51 @@
         renderNodeContent(node);
       }
 
+      // Lưu câu trả lời của người dùng
+      function saveAnswer(quizId, optionIndex) {
+        if (!userAnswers[quizId]) {
+          userAnswers[quizId] = { selected: null, isChecked: false };
+        }
+        userAnswers[quizId].selected = optionIndex;
+        userAnswers[quizId].isChecked = false; // Reset trạng thái kiểm tra nếu user chọn lại
+
+        // Xóa khung kết quả cũ nếu đang hiển thị
+        const resultMsg = document.getElementById(`result-${quizId}`);
+        if (resultMsg) resultMsg.innerHTML = "";
+      }
+
       function renderQuizzes(quizzes) {
         if (!Array.isArray(quizzes) || quizzes.length === 0) {
           return `<div class="empty-state">${t("noQuestion")}</div>`;
         }
 
-        return quizzes
-          .map(
-            (quiz, index) => `
+        const quizzesHtml = quizzes
+          .map((quiz, index) => {
+            const state = userAnswers[quiz.id] || {
+              selected: null,
+              isChecked: false,
+            };
+            let resultHtml = "";
+
+            // Nếu đã từng check, in ra kết quả cũ ngay lập tức
+            if (state.isChecked && state.selected !== null) {
+              const isCorrect = state.selected === quiz.answer;
+              if (isCorrect) {
+                resultHtml = `
+                    <div class="result-alert correct-box">
+                      <strong>${t("correct")}</strong>
+                      <span class="expl"><strong>${t("explanation")}</strong> ${escapeHtml(getText(quiz.explanation))}</span>
+                    </div>`;
+              } else {
+                resultHtml = `
+                    <div class="result-alert incorrect-box">
+                      <strong>${t("incorrect")}</strong>
+                      <span class="expl"><strong>${t("explanation")}</strong> ${escapeHtml(getText(quiz.explanation))}</span>
+                    </div>`;
+              }
+            }
+
+            return `
         <div class="question-box" id="quiz-${escapeHtml(quiz.id)}">
           <div class="question-number">${t("question")} ${index + 1}</div>
           <div class="question-title">${escapeHtml(getText(quiz.question))}</div>
@@ -2962,7 +3052,9 @@
               .map(
                 (option, optionIndex) => `
               <label class="option-label">
-                <input type="radio" name="quiz-${quiz.id}" value="${optionIndex}">
+                <input type="radio" name="quiz-${quiz.id}" value="${optionIndex}" 
+                  onchange="saveAnswer('${quiz.id}', ${optionIndex})" 
+                  ${state.selected === optionIndex ? "checked" : ""}>
                 <span>${escapeHtml(option)}</span>
               </label>
             `,
@@ -2970,28 +3062,45 @@
               .join("")}
           </div>
           <button class="submit-btn" onclick="checkAnswer('${quiz.id}')">${t("check")}</button>
-          <div id="result-${quiz.id}"></div>
+          <div id="result-${quiz.id}">${resultHtml}</div>
         </div>
-      `,
-          )
+      `;
+          })
           .join("");
+
+        // Thêm nút Kiểm tra tổng và Làm lại cuối danh sách
+        return (
+          quizzesHtml +
+          `
+          <div class="exam-actions">
+            <button class="reset-btn" onclick="resetExamAnswers()">${t("reset")}</button>
+            <button class="submit-btn check-all-btn" onclick="checkAllExamAnswers()">${t("checkAll")}</button>
+          </div>
+        `
+        );
       }
 
       function checkAnswer(quizId) {
         const quiz = findQuizById(grammarData, quizId);
         if (!quiz) return;
-        const selected = document.querySelector(
-          `input[name="quiz-${quizId}"]:checked`,
-        );
+
+        const state = userAnswers[quizId] || {
+          selected: null,
+          isChecked: false,
+        };
         const resultMsg = document.getElementById(`result-${quizId}`);
 
-        if (!selected) {
+        if (state.selected === null) {
           resultMsg.innerHTML = `<div class="result-alert incorrect-box"><strong>${t("chooseAnswer")}</strong></div>`;
           return;
         }
 
-        const userChoice = Number(selected.value);
-        if (userChoice === quiz.answer) {
+        // Cập nhật trạng thái đã kiểm tra
+        if (!userAnswers[quizId])
+          userAnswers[quizId] = { selected: state.selected, isChecked: true };
+        else userAnswers[quizId].isChecked = true;
+
+        if (state.selected === quiz.answer) {
           resultMsg.innerHTML = `
           <div class="result-alert correct-box">
             <strong>${t("correct")}</strong>
@@ -3006,6 +3115,36 @@
           </div>
         `;
         }
+      }
+
+      function checkAllExamAnswers() {
+        const node = findNodeById(grammarData, activeNodeId);
+        if (!node || !Array.isArray(node.exams)) return;
+        const exam = node.exams.find((e) => e.id === activeExamId);
+        if (!exam || !Array.isArray(exam.quizzes)) return;
+
+        // Kích hoạt checkAnswer cho tất cả câu hỏi trong đề
+        exam.quizzes.forEach((quiz) => {
+          checkAnswer(quiz.id);
+        });
+      }
+
+      function resetExamAnswers() {
+        const node = findNodeById(grammarData, activeNodeId);
+        if (!node || !Array.isArray(node.exams)) return;
+        const exam = node.exams.find((e) => e.id === activeExamId);
+        if (!exam || !Array.isArray(exam.quizzes)) return;
+
+        // Xóa đáp án của các câu trong đề hiện tại
+        exam.quizzes.forEach((quiz) => {
+          if (userAnswers[quiz.id]) {
+            userAnswers[quiz.id].selected = null;
+            userAnswers[quiz.id].isChecked = false;
+          }
+        });
+
+        // Render lại UI để xóa radio button và thông báo kết quả
+        renderNodeContent(node);
       }
 
       function escapeHtml(value) {
