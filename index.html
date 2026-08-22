@@ -581,7 +581,7 @@
 ========================= */
       .main-content > .card:first-child {
         position: relative;
-        overflow: hidden;
+        /* overflow: hidden; */
 
         background:
           radial-gradient(
@@ -640,28 +640,37 @@
       /* ================================================================
    BREADCRUMB
 ================================================================ */
+      /* ================================================================
+   BREADCRUMB
+================================================================ */
       .breadcrumb {
         width: 100%;
+        max-width: 100%;
+        min-width: 0;
 
         display: flex;
         align-items: center;
 
-        min-width: 0;
-
         margin-bottom: 25px;
         padding-bottom: 14px;
 
-        border-bottom: 1px solid var(--line-soft);
+        border-bottom: 1px solid var(--line);
 
+        /* Quan trọng */
         overflow-x: auto;
         overflow-y: hidden;
 
+        /* Không cho xuống dòng */
         white-space: nowrap;
 
+        /* Scroll mượt */
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-x: contain;
+
+        /* Ẩn scrollbar */
         scrollbar-width: none;
 
         color: var(--muted);
-
         font-size: 11px;
 
         gap: 4px;
@@ -671,16 +680,17 @@
         display: none;
       }
 
+      /* Mỗi item không được co lại */
       .breadcrumb-item {
         flex: 0 0 auto;
 
         display: inline-flex;
         align-items: center;
 
-        max-width: 300px;
-
-        overflow: hidden;
-        text-overflow: ellipsis;
+        /*
+   * Bỏ max-width nếu muốn text luôn hiển thị đầy đủ
+   */
+        max-width: none;
 
         padding: 5px 8px;
 
@@ -709,6 +719,7 @@
         cursor: default;
       }
 
+      /* Dấu ❯ cũng không được co */
       .breadcrumb-separator {
         flex: 0 0 auto;
 
@@ -1993,10 +2004,7 @@
                             },
                             {
                               id: "present-simple",
-                              name: [
-                                "2. Hiện tại đơn",
-                                "2. Present simple",
-                              ],
+                              name: ["2. Hiện tại đơn", "2. Present simple"],
                               theory: [],
                               exams: [],
                               children: [
@@ -2063,10 +2071,7 @@
                           children: [
                             {
                               id: "past-simple",
-                              name: [
-                                "1. Quá khứ đơn",
-                                "1. Past simple",
-                              ],
+                              name: ["1. Quá khứ đơn", "1. Past simple"],
                               theory: [],
                               exams: [],
                               children: [
@@ -2296,10 +2301,7 @@
                 },
                 {
                   id: "reported-speech",
-                  name: [
-                    "2. Câu gián tiếp",
-                    "2. Reported speech",
-                  ],
+                  name: ["2. Câu gián tiếp", "2. Reported speech"],
                   theory: [],
                   exams: [],
                   children: [],
@@ -2322,10 +2324,7 @@
                   children: [
                     {
                       id: "relative-clauses",
-                      name: [
-                        "1. Mệnh đề quan hệ",
-                        "1. Relative clauses",
-                      ],
+                      name: ["1. Mệnh đề quan hệ", "1. Relative clauses"],
                       theory: [],
                       exams: [],
                       children: [],
@@ -2336,19 +2335,13 @@
             },
             {
               id: "syntactic-functions",
-              name: [
-                "4. CHỨC NĂNG CÚ PHÁP",
-                "4. SYNTACTIC FUNCTIONS",
-              ],
+              name: ["4. CHỨC NĂNG CÚ PHÁP", "4. SYNTACTIC FUNCTIONS"],
               theory: [],
               exams: [],
               children: [
                 {
                   id: "clause-functions",
-                  name: [
-                    "1. Cấp mệnh đề",
-                    "1. Clause functions",
-                  ],
+                  name: ["1. Cấp mệnh đề", "1. Clause functions"],
                   theory: [],
                   exams: [],
                   children: [
@@ -2361,10 +2354,7 @@
                     },
                     {
                       id: "verb",
-                      name: [
-                        "2. Động từ",
-                        "2. Verb / Predicator",
-                      ],
+                      name: ["2. Động từ", "2. Verb / Predicator"],
                       theory: [],
                       exams: [],
                       children: [],
@@ -2377,20 +2367,14 @@
                       children: [
                         {
                           id: "direct-object",
-                          name: [
-                            "1. Trực tiếp",
-                            "1. Direct object",
-                          ],
+                          name: ["1. Trực tiếp", "1. Direct object"],
                           theory: [],
                           exams: [],
                           children: [],
                         },
                         {
                           id: "indirect-object",
-                          name: [
-                            "2. Gián tiếp",
-                            "2. Indirect object",
-                          ],
+                          name: ["2. Gián tiếp", "2. Indirect object"],
                           theory: [],
                           exams: [],
                           children: [],
@@ -2415,20 +2399,14 @@
                       children: [
                         {
                           id: "subject-complement",
-                          name: [
-                            "1. Cho chủ ngữ",
-                            "1. Subject complement",
-                          ],
+                          name: ["1. Cho chủ ngữ", "1. Subject complement"],
                           theory: [],
                           exams: [],
                           children: [],
                         },
                         {
                           id: "object-complement",
-                          name: [
-                            "2. Cho tân ngữ",
-                            "2. Object complement",
-                          ],
+                          name: ["2. Cho tân ngữ", "2. Object complement"],
                           theory: [],
                           exams: [],
                           children: [],
@@ -2447,10 +2425,7 @@
                 {
                   id: "phrase-functions",
 
-                  name: [
-                    "2. Cấp cụm từ",
-                    "2. Phrase Functions",
-                  ],
+                  name: ["2. Cấp cụm từ", "2. Phrase Functions"],
 
                   theory: [],
                   exams: [],
@@ -2490,10 +2465,7 @@
                         {
                           id: "premodifier",
 
-                          name: [
-                            "1. Bổ nghĩa trước",
-                            "1. Premodifier",
-                          ],
+                          name: ["1. Bổ nghĩa trước", "1. Premodifier"],
 
                           theory: [],
                           exams: [],
@@ -2504,10 +2476,7 @@
                         {
                           id: "postmodifier",
 
-                          name: [
-                            "2. Bổ nghĩa sau",
-                            "2. Postmodifier",
-                          ],
+                          name: ["2. Bổ nghĩa sau", "2. Postmodifier"],
 
                           theory: [],
                           exams: [],
@@ -2520,10 +2489,7 @@
                     {
                       id: "noun-complement",
 
-                      name: [
-                        "4. Bổ ngữ của danh từ",
-                        "4. Complement of Noun",
-                      ],
+                      name: ["4. Bổ ngữ của danh từ", "4. Complement of Noun"],
 
                       theory: [],
                       exams: [],
@@ -2548,10 +2514,7 @@
                     {
                       id: "verb-complement",
 
-                      name: [
-                        "6. Bổ ngữ của động từ",
-                        "6. Complement of Verb",
-                      ],
+                      name: ["6. Bổ ngữ của động từ", "6. Complement of Verb"],
 
                       theory: [],
                       exams: [],
@@ -2577,10 +2540,7 @@
                 {
                   id: "peripheral-discourse-functions",
 
-                  name: [
-                    "3. Cấp câu",
-                    "3. Peripheral / Discourse Functions",
-                  ],
+                  name: ["3. Cấp câu", "3. Peripheral / Discourse Functions"],
 
                   theory: [],
                   exams: [],
@@ -2611,10 +2571,7 @@
                     {
                       id: "disjunct",
 
-                      name: [
-                        "3. Thành phần biểu thị thái độ",
-                        "3. Disjunct",
-                      ],
+                      name: ["3. Thành phần biểu thị thái độ", "3. Disjunct"],
 
                       theory: [],
                       exams: [],
@@ -2625,10 +2582,7 @@
                     {
                       id: "conjunct",
 
-                      name: [
-                        "4. Thành phần liên kết",
-                        "4. Conjunct",
-                      ],
+                      name: ["4. Thành phần liên kết", "4. Conjunct"],
 
                       theory: [],
                       exams: [],
@@ -2639,10 +2593,7 @@
                     {
                       id: "parenthetical",
 
-                      name: [
-                        "5. Thành phần xen vào",
-                        "5. Parenthetical",
-                      ],
+                      name: ["5. Thành phần xen vào", "5. Parenthetical"],
 
                       theory: [],
                       exams: [],
