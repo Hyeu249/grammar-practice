@@ -1157,7 +1157,7 @@
         color: var(--ink);
 
         font-size: 14px;
-        font-weight: 600;
+        /* font-weight: 600; */
 
         line-height: 1.7;
       }
@@ -1920,16 +1920,18 @@
                                     {
                                       id: "pc-adv-q1",
                                       question: [
-                                        "The chef ___ the soup right now to see if it needs more salt.",
-                                        "The chef ___ the soup right now to see if it needs more salt.",
+                                        `
+**Tìm đáp án đúng**:  
+Please don’t make so much noise.
+`,
                                       ],
                                       options: [
-                                        "tastes",
-                                        "is tasting",
-                                        "taste",
-                                        "are tasting",
+                                        "I’m trying to work",
+                                        "I’m driving to work",
+                                        "I’m going to work",
+                                        "I’m working",
                                       ],
-                                      answer: 1,
+                                      answer: 0,
                                       explanation: [
                                         "Động từ 'taste' thông thường là động từ trạng thái, nhưng khi mang nghĩa chủ động là 'đang nếm thử' thì được dùng ở thì hiện tại tiếp diễn.",
                                         "Normally a stative verb, 'taste' can be used in the continuous tense when it describes the active action of testing a flavor.",
@@ -3357,7 +3359,7 @@
             return `
               <div class="question-box" id="quiz-${escapeHtml(quiz.id)}">
                 <div class="question-number">${t("question")} ${index + 1}</div>
-                <div class="question-title">${escapeHtml(getText(quiz.question))}</div>
+                <div class="question-title">${marked.parse(getText(quiz.question))}</div>
                 <div class="options-list">
                   ${quiz.options
                     .map(
